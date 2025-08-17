@@ -20,6 +20,8 @@ Settings:
 
   - Vim / NeoVim
 
+  - Git
+
 Installation:
 
   - Clone repository to location of your choice (${CLONE})

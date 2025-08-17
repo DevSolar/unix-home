@@ -1,0 +1,16 @@
+[core]
+	autocrlf = input
+	eol = lf
+	filemode = true
+	editor = vim
+[safe]
+	directory = ~
+[pull]
+	rebase = true
+[submodule]
+	recurse = true
+[advice]
+	addIgnoredFile = false
+	waitingForEditor = false
+[init]
+	defaultBranch = main
