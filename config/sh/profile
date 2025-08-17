@@ -4,4 +4,4 @@ LESS="--quit-if-one-screen --quit-at-eof --RAW-CONTROL-CHARS --chop-long-lines"
 LESSHISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}/lesshst"
 VIMINIT=":source ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/vimrc"
 
-export LESS LESSHISTFILE
+export LESS LESSHISTFILE VIMINIT

@@ -1,3 +1,29 @@
-if has( 'nvim' )
+if empty( $XDG_STATE_HOME )
+    let s:xdg_state_home = $HOME .. '/.local/state'
 else
+    let s:xdg_state_home = $XDG_STATE_HOME
 endif
+
+if empty( $XDG_CONFIG_HOME )
+    let s:xdg_config_home = $HOME .. '/.config'
+else
+    let s:xdg_config_home = $XDG_CONFIG_HOME
+endif
+
+if has( 'nvim' )
+    let &viminfofile = s:xdg_state_home . "/nviminfo"
+else
+    let &viminfofile = s:xdg_state_home . "/viminfo"
+    let g:netrw_home= s:xdg_state_home
+
+    if ( v:version <= 900 )
+        " Versions older than 9.1 need help with XDG layout
+        function XDG_PATH( path )
+            return substitute( a:path, $HOME .. "/.vim,", s:xdg_config_home .. ",", "" )->substitute( $HOME .. "/.vim/after$", s:xdg_config_home .. "/after", "" )
+        endfunction
+
+        exec 'set runtimepath=' . XDG_PATH( &runtimepath )
+        exec 'set packpath=' . XDG_PATH( &packpath )
+    endif
+endif
+

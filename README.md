@@ -18,6 +18,8 @@ Settings:
 
   - Ls
 
+  - Vim / NeoVim
+
 Installation:
 
   - Clone repository to location of your choice (${CLONE})

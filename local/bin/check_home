@@ -59,4 +59,7 @@ _misplaced "${HOME}/.bash_profile" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh" "sou
 
 _misplaced "${HOME}/.dircolors" "${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors" "sourcing" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_profile"
 
+_misplaced "${HOME}/.viminfo" "${XDG_STATE_HOME:-${HOME}/.local/state}" "VIMINIT" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
+
 _unnecessary "${HOME}/.bash_logout"
+_unnecessary "${HOME}/.bashrc"
