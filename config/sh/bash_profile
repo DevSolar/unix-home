@@ -1,0 +1,6 @@
+# Bash-specific login settings
+
+# Vi key bindings on command line
+set -o vi
+
+HISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/bash_history"; export HISTFILE
