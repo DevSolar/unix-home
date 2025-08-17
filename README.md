@@ -22,6 +22,8 @@ Settings:
 
   - Git
 
+  - Gdb
+
 Installation:
 
   - Clone repository to location of your choice (${CLONE})
