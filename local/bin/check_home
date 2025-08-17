@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+title='Unclean - WARNING'
+backtitle='Checking Unix Home...'
+
+_missing()
+{
+    if [[ ! -e "${1}" ]]
+    then
+        msg="${1} not found.\nCopy it from ${2} in the repository."
+        dialog --title "Missing - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+    fi
+}
+
+_dirmissing()
+{
+    if [[ ! -e "${1}" ]]
+    then
+        msg="${1} not found.\nSee README.md in the repository."
+	dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+    fi
+
+    if [[ ! -f "${1}/.unix-home" ]]
+    then
+        msg="${1} is not the one provided by the package. See README.md in the repository."
+	dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+    fi
+}
+
+_misplaced()
+{
+    if [[ -e "${1}" ]]
+    then
+        msg="${1} exists.\nFile should reside in ${2}!\nPlease check ${3} setting in ${4},\nand perhaps delete the misplaced file."
+        dialog --title "Misplaced - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+    fi
+}
+
+_unnecessary()
+{
+    if [[ -e "${1}" ]]
+    then
+        msg="${1} exists.\nFile cannot be placed elsewhere, but you might want to check if you can do without it."
+        dialog --title "Unnecessary - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+    fi
+}
+
+_dirmissing "${HOME}/.config"
+_dirmissing "${HOME}/.local"
+
+_missing "/etc/profile.d/clean_home.sh" "system/etc/profile.d"
+
+_misplaced "${HOME}/.lesshst" "${XDG_DATA_HOME:-${HOME}/.local/share}" "LESSHISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
+
+_misplaced "${HOME}/.bash_history" "${XDG_DATA_HOME:-${HOME}/.local/share}" "HISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_profile"
+
+_misplaced "${HOME}/.profile" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh" "sourcing" "/etc/profile.d/clean_home.sh"
+_misplaced "${HOME}/.bash_profile" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh" "sourcing" "/etc/profile.d/clean_home.sh"
+
+_misplaced "${HOME}/.dircolors" "${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors" "sourcing" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_profile"
+
+_unnecessary "${HOME}/.bash_logout"
