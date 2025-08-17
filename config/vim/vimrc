@@ -16,14 +16,24 @@ else
     let &viminfofile = s:xdg_state_home . "/viminfo"
     let g:netrw_home= s:xdg_state_home
 
-    if ( v:version <= 900 )
+    "if ( v:version <= 900 )
         " Versions older than 9.1 need help with XDG layout
         function XDG_PATH( path )
-            return substitute( a:path, $HOME .. "/.vim,", s:xdg_config_home .. ",", "" )->substitute( $HOME .. "/.vim/after$", s:xdg_config_home .. "/after", "" )
+            return substitute( a:path, $HOME .. "/.vim,", s:xdg_config_home .. "/vim,", "" )->substitute( $HOME .. "/.vim/after$", s:xdg_config_home .. "/vim/after", "" )
         endfunction
 
         exec 'set runtimepath=' . XDG_PATH( &runtimepath )
         exec 'set packpath=' . XDG_PATH( &packpath )
-    endif
+    "endif
 endif
 
+call plug#begin()
+
+" List plugins here
+Plug 'tpope/vim-dispatch'
+Plug 'gerw/vim-latex-suite'
+Plug 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/a.vim'
+Plug 'mhinz/vim-startify'
+
+call plug#end()
