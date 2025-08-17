@@ -3,4 +3,50 @@
 # Vi key bindings on command line
 set -o vi
 
-HISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/bash_history"; export HISTFILE
+HISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}/bash_history"; export HISTFILE
+HISTCONTROL=ignoreboth; export HISTCONTROL
+
+shopt -s histappend
+shopt -s checkwinsize
+
+[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+
+PS1='\u@\h:\w\$ '
+
+if [[ $TERM == xterm-color ]] || [[ $TERM == *-256color ]]
+then
+    if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null
+    then
+        PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+        GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+    fi
+fi
+
+if [[ -x /usr/bin/dircolors ]]
+then
+    if [[ -r ${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors/dircolors ]]
+    then
+        eval "$(dircolors -b ${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors/dircolors)"
+    else
+        eval "$(dircolors -b)"
+    fi
+
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases"
+
+if ! shopt -oq posix
+then
+    if [[ -e /usr/share/bash-completion/bash_completion ]]
+    then
+        . /usr/share/bash-completion/bash_completion
+    elif [[ -e /etc/bash_completion ]]
+    then
+        . /etc/bash_completion
+    fi
+fi

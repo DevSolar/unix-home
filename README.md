@@ -10,7 +10,13 @@ Settings:
 
   - Bash startup files
 
-  - Less
+  - Color prompt, colorization
+
+  - Bash completion
+
+  - Less / LessPipe
+
+  - Ls
 
 Installation:
 

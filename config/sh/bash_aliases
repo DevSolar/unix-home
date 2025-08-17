@@ -1,0 +1,4 @@
+# Aliases and functions
+
+alias ll='ls -AlF'
+alias la='ls -A'
