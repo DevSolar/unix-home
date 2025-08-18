@@ -42,7 +42,8 @@ test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases" && . "${XDG_CONFIG
 
 if [[ -x ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/p4c ]]
 then
-    alias p4c="${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/p4c"
+    PATH="$PATH:${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/"
+    export PATH
 fi
 
 if ! shopt -oq posix

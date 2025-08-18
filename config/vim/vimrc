@@ -49,6 +49,8 @@ else
     let g:clang_format#auto_formatexpr = 1
     let g:clang_format#enable_fallback_style = 0
 
+    nnoremap <F2> :let &expandtab = !&expandtab<CR>
+
     autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
     autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :ClangFormat<CR>
     autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
