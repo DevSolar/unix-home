@@ -17,13 +17,13 @@ _dirmissing()
     if [[ ! -e "${1}" ]]
     then
         msg="${1} not found.\nSee README.md in the repository."
-	dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+        dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
     fi
 
     if [[ ! -f "${1}/.unix-home" ]]
     then
         msg="${1} is not the one provided by the package. See README.md in the repository."
-	dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+        dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
     fi
 }
 
@@ -47,6 +47,8 @@ _unnecessary()
 
 _dirmissing "${HOME}/.config"
 _dirmissing "${HOME}/.local"
+_dirmissing "${HOME}/.local/state"
+_dirmissing "${HOME}/.local/share"
 
 _missing "/etc/profile.d/clean_home.sh" "system/etc/profile.d"
 
