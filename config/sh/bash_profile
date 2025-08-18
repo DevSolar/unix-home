@@ -40,6 +40,11 @@ fi
 
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases"
 
+if [[ -x ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/p4c ]]
+then
+    alias p4c="${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/p4c"
+fi
+
 if ! shopt -oq posix
 then
     if [[ -e /usr/share/bash-completion/bash_completion ]]

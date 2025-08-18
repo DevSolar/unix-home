@@ -36,6 +36,7 @@ else
     Plug 'kana/vim-operator-user'
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'rhysd/vim-clang-format'
+    Plug 'DevSolar/perforce_autoopen.vim'
 
     call plug#end()
     " plug.vim -- end
