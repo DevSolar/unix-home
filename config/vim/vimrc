@@ -1,3 +1,5 @@
+" Getting XDG paths
+
 if empty( $XDG_STATE_HOME )
     let s:xdg_state_home = $HOME .. '/.local/state'
 else
@@ -24,45 +26,12 @@ else
     exec 'set runtimepath=' . XDG_PATH( &runtimepath )
     exec 'set packpath=' . XDG_PATH( &packpath )
 
-    " plug.vim -- begin
-    call plug#begin()
-
-    " List plugins here
-    Plug 'tpope/vim-dispatch'
-    Plug 'gerw/vim-latex-suite'
-    Plug 'vim-scripts/taglist.vim'
-    Plug 'vim-scripts/a.vim'
-    Plug 'mhinz/vim-startify'
-    Plug 'kana/vim-operator-user'
-    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    Plug 'rhysd/vim-clang-format'
-    Plug 'DevSolar/perforce_autoopen.vim'
-
-    call plug#end()
-    " plug.vim -- end
-
-    " vim-clang-format begin
-    set textwidth=0
-
-    let g:clang_format#detect_style_file = 1
-    let g:clang_format#auto_format_on_insert_leave = 1
-    let g:clang_format#auto_formatexpr = 1
-    let g:clang_format#enable_fallback_style = 0
-
-    nnoremap <F2> :let &expandtab = !&expandtab<CR>
-
-    autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-    autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :ClangFormat<CR>
-    autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-    nmap <Leader>C :ClangFormatAutoToggle<CR>
-    " vim-clang-format end
 endif
 
 filetype on                                                    " Auto-detect filetype
 filetype plugin indent on                                    " Auto-indent
 
 set expandtab
-autocmd FileType vim set noexpandtab
 autocmd FileType cpp set noexpandtab
 autocmd FileType make set noexpandtab
 
@@ -98,40 +67,12 @@ inoremap <silent><C-l> <C-o>:call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@
 setlocal spelllang=de                                       " Language for spellcheck
 "set spell                                                  " Enable spellcheck
 
-" vim-latex (http://vim-latex.sourceforge.net)
-set shellslash                                              " Convert backslashes in filenames
-set grepprg=grep\ -nH\ $*                                   " Show line numbers and file names
-let g:tex_flavor='latex'                                    " Force .tex to mean LaTeX, not plain TeX
-"let g:Tex_SmartQuoteOpen = "“"                             " Opening quote, English style (German would be "\"`")
-"let g:Tex_SmartQuoteClose = "”"                            " Closing quote, English style (German would be "\"'")
-let g:Tex_AutoFolding = 0                                   " Do not fold on opening file
-let g:Tex_Env_table = "\\begin{table}\<CR>\\caption{<++>}\<CR>\\label{tab:<++>}\<CR>\\begin{tabularx}{<+width+>}{<+columns+>}\<CR>\\hline\<CR><++>\<CR>\\hline\<CR>\\end{tabularx}\<CR>\\end{table}<++>"
-" list<F5> gives lstlisting environment
-let g:Tex_Env_list = "\\begin{lstlisting}[<++>]\<CR><++>\<CR>\\end{lstlisting}<++>"
-" list<F7> gives lstinline command
-let g:Tex_Com_list = "\\lstinline{<++>}<++>"
-
 if ! has('nvim')
     " Workaround for Gnome-Terminal bug showing >4;m escape sequence
     set keyprotocol = ""
     "if &term
     let &term = &term
     "endif
-
-"    compiler msbuild
-"
-"    command -nargs=+ Search {
-"        let s:prev_compiler = ""
-"        if exists("b:current_compiler")
-"            let s:prev_compiler = b:current_compiler
-"        endif
-"        compiler search
-"        Make <args>
-"        if !empty(prev_compiler)
-"            exec 'compiler' prev_compiler
-"        endif
-"        copen
-"    }
 
     command -nargs=0 Csplit {
         let s:filename = expand( '%:r' )
@@ -154,6 +95,62 @@ if has( 'gui_running' )
     set lines=30 columns=120
 endif
 
+nnoremap <silent> <F8> :TlistToggle<CR>       " F8 toggles taglist
+let g:Tlist_GainFocus_On_ToggleOpen = 1       " ...give focus...
+let g:Tlist_Exit_OnlyWindow = 1               " ...exit if last window open...
+let g:Tlist_Use_Right_Window = 1              " ...open taglist to the right...
+let g:Highlight_Tag_On_BufEnter = 1           " ...highlight tag when entering buffer...
+let g:Tlist_Auto_Open = 0                     " ...do not open by default...
+let g:Tlist_Auto_Update = 1                   " ...update automatically...
+let g:Tlist_Show_One_File = 0                 " ...show all open files...
+let g:Tlist_Enable_Fold_Column = 0            " ...disable folding...
+let g:Tlist_Use_SingleClick = 1               " ...enable jump-on-click...
+
+" Settings for vim-latex (http://vim-latex.sourceforge.net)
+set shellslash                                " Convert backward slashes to forward ones in filename references
+set grepprg=grep\ -nH\ $*                     " Force grep to display file name even in single-file searches
+let g:tex_flavor='latex'                      " Force .tex to mean LaTeX, not plain TeX
+let g:Tex_SmartQuoteOpen = "``"               " Opening quote, English style (German would be "\"`")
+let g:Tex_SmartQuoteClose = "''"              " Closing quote, English style (German would be "\"'")
+let g:Tex_AutoFolding = 0                     " Do not fold on opening file
+let g:Tex_Env_table = "\\begin{table}\<CR>\\caption{<++>}\<CR>\\label{tab:<++>}\<CR>\\begin{tabularx}{<+width+>}{<+columns+>}\<CR>\\hline\<CR><++>\<CR>\\hline\<CR>\\end{tabularx}\<CR>\\end{table}<++>"
+let g:Tex_Env_list = "\\begin{lstlisting}[<++>]\<CR><++>\<CR>\\end{lstlisting}<++>"  " list<F5> gives lstlisting environment
+let g:Tex_Com_list = "\\lstinline{<++>}<++>"                                         " list<F7> gives lstinline command
+
 if filereadable( s:xdg_config_home .. '/vim/vimrc.local' )
     exec 'source' s:xdg_config_home .. '/vim/vimrc.local'
 endif
+
+" plug.vim -- begin
+call plug#begin()
+
+" List plugins here
+Plug 'tpope/vim-dispatch'
+Plug 'gerw/vim-latex-suite'
+Plug 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/a.vim'
+Plug 'mhinz/vim-startify'
+Plug 'kana/vim-operator-user'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'rhysd/vim-clang-format'
+Plug 'DevSolar/perforce_autoopen.vim'
+Plug 'neoclide/coc.nvim', {'branch' : 'release'}
+
+call plug#end()
+" plug.vim -- end
+
+" vim-clang-format begin
+set textwidth=0
+
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format_on_insert_leave = 1
+let g:clang_format#auto_formatexpr = 1
+let g:clang_format#enable_fallback_style = 0
+
+nnoremap <F3> :let &expandtab = !&expandtab<CR>
+
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :ClangFormat<CR>
+autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+nmap <Leader>C :ClangFormatAutoToggle<CR>
+" vim-clang-format end
