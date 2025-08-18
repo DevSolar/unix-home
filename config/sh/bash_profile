@@ -3,7 +3,7 @@
 # Vi key bindings on command line
 set -o vi
 
-HISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}/bash_history"; export HISTFILE
+HISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/bash_history"; export HISTFILE
 HISTCONTROL=ignoreboth; export HISTCONTROL
 
 shopt -s histappend

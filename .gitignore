@@ -4,7 +4,5 @@ config/git/gitconfig
 config/sh/bash_aliases
 config/vim/vimrc.local
 config/vim/plugged
-local/share/bash_history
-local/share/lesshst
 local/share/nvim/plugged
 local/state
