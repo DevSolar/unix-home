@@ -8,7 +8,7 @@ _missing()
     if [[ ! -e "${1}" ]]
     then
         msg="${1} not found.\nCopy it from ${2} in the repository."
-        dialog --title "Missing - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+        dialog --title "Missing - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 12 44
     fi
 }
 
@@ -17,13 +17,13 @@ _dirmissing()
     if [[ ! -e "${1}" ]]
     then
         msg="${1} not found.\nSee README.md in the repository."
-        dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+        dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 12 44
     fi
 
     if [[ ! -f "${1}/.unix-home" ]]
     then
         msg="${1} is not the one provided by the package. See README.md in the repository."
-        dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+        dialog --title "Missing - ERROR" --backtitle "Checking Unix Home..." --msgbox "${msg}" 12 44
     fi
 }
 
@@ -32,7 +32,7 @@ _misplaced()
     if [[ -e "${1}" ]]
     then
         msg="${1} exists.\nFile should reside in ${2}!\nPlease check ${3} setting in ${4},\nand perhaps delete the misplaced file."
-        dialog --title "Misplaced - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+        dialog --title "Misplaced - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 12 44
     fi
 }
 
@@ -41,7 +41,7 @@ _unnecessary()
     if [[ -e "${1}" ]]
     then
         msg="${1} exists.\nFile cannot be placed elsewhere, but you might want to check if you can do without it."
-        dialog --title "Unnecessary - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 10 44
+        dialog --title "Unnecessary - WARNING" --backtitle "Checking Unix Home..." --msgbox "${msg}" 12 44
     fi
 }
 
@@ -52,9 +52,10 @@ _dirmissing "${HOME}/.local/share"
 
 _missing "/etc/profile.d/clean_home.sh" "system/etc/profile.d"
 
-_misplaced "${HOME}/.lesshst" "${XDG_DATA_HOME:-${HOME}/.local/share}" "LESSHISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
-
-_misplaced "${HOME}/.bash_history" "${XDG_DATA_HOME:-${HOME}/.local/share}" "HISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_profile"
+# History files
+_misplaced "${HOME}/.less_history" "${XDG_STATE_HOME:-${HOME}/.local/share}" "LESSHISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
+_misplaced "${HOME}/.bash_history" "${XDG_STATE_HOME:-${HOME}/.local/share}" "HISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_profile"
+_misplaced "${HOME}/.gdb_history" "${XDG_STATE_HOME:-${HOME}/.local/state}" "'set history filename'" "${XDG_CONFIG_HOME:-${HOME}/.config}/gdb/gdbinit"
 
 _misplaced "${HOME}/.profile" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh" "sourcing" "/etc/profile.d/clean_home.sh"
 _misplaced "${HOME}/.bash_profile" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh" "sourcing" "/etc/profile.d/clean_home.sh"
@@ -65,3 +66,11 @@ _misplaced "${HOME}/.viminfo" "${XDG_STATE_HOME:-${HOME}/.local/state}" "VIMINIT
 
 _unnecessary "${HOME}/.bash_logout"
 _unnecessary "${HOME}/.bashrc"
+
+if [[ -r /etc/profile.d/update-motd.sh ]]
+then
+    if ! grep -q "\$HOME/\.local" /etc/profile.d/update-motd.sh
+    then
+        dialog --title "HINT" --backtitle "Checking Unix Home..." --msgbox "/etc/profile.d/update-motd.sh contains references to .dotfiles.\nReplace '\$HOME/.' with '\$HOME/.local/state/' in the file to fix that." 12 44
+    fi
+fi
