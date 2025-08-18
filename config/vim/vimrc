@@ -16,24 +16,141 @@ else
     let &viminfofile = s:xdg_state_home . "/viminfo"
     let g:netrw_home= s:xdg_state_home
 
-    "if ( v:version <= 900 )
-        " Versions older than 9.1 need help with XDG layout
-        function XDG_PATH( path )
-            return substitute( a:path, $HOME .. "/.vim,", s:xdg_config_home .. "/vim,", "" )->substitute( $HOME .. "/.vim/after$", s:xdg_config_home .. "/vim/after", "" )
-        endfunction
+    " Versions older than 9.1 need help with XDG layout
+    function XDG_PATH( path )
+        return substitute( a:path, $HOME .. "/.vim,", s:xdg_config_home .. "/vim,", "" )->substitute( $HOME .. "/.vim/after$", s:xdg_config_home .. "/vim/after", "" )
+    endfunction
 
-        exec 'set runtimepath=' . XDG_PATH( &runtimepath )
-        exec 'set packpath=' . XDG_PATH( &packpath )
-    "endif
+    exec 'set runtimepath=' . XDG_PATH( &runtimepath )
+    exec 'set packpath=' . XDG_PATH( &packpath )
+
+    " plug.vim -- begin
+    call plug#begin()
+
+    " List plugins here
+    Plug 'tpope/vim-dispatch'
+    Plug 'gerw/vim-latex-suite'
+    Plug 'vim-scripts/taglist.vim'
+    Plug 'vim-scripts/a.vim'
+    Plug 'mhinz/vim-startify'
+    Plug 'kana/vim-operator-user'
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    Plug 'rhysd/vim-clang-format'
+
+    call plug#end()
+    " plug.vim -- end
+
+    " vim-clang-format begin
+    set textwidth=0
+
+    let g:clang_format#detect_style_file = 1
+    let g:clang_format#auto_format_on_insert_leave = 1
+    let g:clang_format#auto_formatexpr = 1
+    let g:clang_format#enable_fallback_style = 0
+
+    autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+    autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :ClangFormat<CR>
+    autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+    nmap <Leader>C :ClangFormatAutoToggle<CR>
+    " vim-clang-format end
 endif
 
-call plug#begin()
+filetype on                                                    " Auto-detect filetype
+filetype plugin indent on                                    " Auto-indent
 
-" List plugins here
-Plug 'tpope/vim-dispatch'
-Plug 'gerw/vim-latex-suite'
-Plug 'vim-scripts/taglist.vim'
-Plug 'vim-scripts/a.vim'
-Plug 'mhinz/vim-startify'
+set expandtab
+autocmd FileType vim set noexpandtab
+autocmd FileType cpp set noexpandtab
+autocmd FileType make set noexpandtab
 
-call plug#end()
+" If a system gives encoding problems, try uncommenting this.
+"set encoding=utf-8
+
+set shiftwidth=4                                            " Indent by 4 spaces
+set tabstop=4                                               " 1 TAB = 4 columns
+set statusline=%F%m%r%h%w%q\ %=[%{&fenc}][C%03v][R%4l/%4L]  " Status line format
+set laststatus=2                                            " Display status line
+set listchars=tab:>-,trail:.,nbsp:@,extends:#               " How to display whitespaces
+set list                                                    " Display whitespaces
+set background=dark                                         " Contrast setting
+set wrap                                                    " Wrap long lines
+set showmatch                                               " Highlight matching brace
+set incsearch                                               " Show incremental search results
+set hlsearch                                                " Highlight search matches
+set scrolloff=3                                             " Keep lines above / below cursor
+set mouse=a                                                 " Mouse support all modes
+set pastetoggle=<F2>                                        " 'Paste' autoformat off
+set vb t_vb=                                                " Disable terminal beeps
+
+color default                                               " Color scheme
+syntax on                                                   " Syntax highlighting
+
+" Ctrl-h / Ctrl-l to handle CamelCase
+nnoremap <silent><C-h> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
+nnoremap <silent><C-l> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
+inoremap <silent><C-h> <C-o>:call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
+inoremap <silent><C-l> <C-o>:call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
+
+" Spellchecker: ]s - next word, zg - add good, zug - undo add, z= - suggestions
+setlocal spelllang=de                                       " Language for spellcheck
+"set spell                                                  " Enable spellcheck
+
+" vim-latex (http://vim-latex.sourceforge.net)
+set shellslash                                              " Convert backslashes in filenames
+set grepprg=grep\ -nH\ $*                                   " Show line numbers and file names
+let g:tex_flavor='latex'                                    " Force .tex to mean LaTeX, not plain TeX
+"let g:Tex_SmartQuoteOpen = "“"                             " Opening quote, English style (German would be "\"`")
+"let g:Tex_SmartQuoteClose = "”"                            " Closing quote, English style (German would be "\"'")
+let g:Tex_AutoFolding = 0                                   " Do not fold on opening file
+let g:Tex_Env_table = "\\begin{table}\<CR>\\caption{<++>}\<CR>\\label{tab:<++>}\<CR>\\begin{tabularx}{<+width+>}{<+columns+>}\<CR>\\hline\<CR><++>\<CR>\\hline\<CR>\\end{tabularx}\<CR>\\end{table}<++>"
+" list<F5> gives lstlisting environment
+let g:Tex_Env_list = "\\begin{lstlisting}[<++>]\<CR><++>\<CR>\\end{lstlisting}<++>"
+" list<F7> gives lstinline command
+let g:Tex_Com_list = "\\lstinline{<++>}<++>"
+
+if ! has('nvim')
+    " Workaround for Gnome-Terminal bug showing >4;m escape sequence
+    set keyprotocol = ""
+    "if &term
+    let &term = &term
+    "endif
+
+"    compiler msbuild
+"
+"    command -nargs=+ Search {
+"        let s:prev_compiler = ""
+"        if exists("b:current_compiler")
+"            let s:prev_compiler = b:current_compiler
+"        endif
+"        compiler search
+"        Make <args>
+"        if !empty(prev_compiler)
+"            exec 'compiler' prev_compiler
+"        endif
+"        copen
+"    }
+
+    command -nargs=0 Csplit {
+        let s:filename = expand( '%:r' )
+        exec 'split' s:filename .. '.cpp'
+    }
+
+    command -nargs=0 Hsplit {
+        let s:filename = expand( '%:r' )
+        exec 'split' s:filename .. '.h'
+    }
+
+    set cscopetag
+    set cscopetagorder=1
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+endif
+
+if has( 'gui_running' )
+    set guifont=Monospace\ 12
+    highlight Normal guibg=black guifg=green
+    set lines=30 columns=120
+endif
+
+if filereadable( s:xdg_config_home .. '/vim/vimrc.local' )
+    exec 'source' s:xdg_config_home .. '/vim/vimrc.local'
+endif

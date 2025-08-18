@@ -1,2 +1,4 @@
+config/vim/vimrc.local
+config/vim/plugged
 local/share
 local/state
