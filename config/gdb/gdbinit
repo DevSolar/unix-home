@@ -1,4 +1,5 @@
 fs cmd
 tui enable
 set history save on
+set history filename ~/.local/state/gdb_history
 set debuginfod enabled off

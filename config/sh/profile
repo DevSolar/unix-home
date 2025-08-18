@@ -1,7 +1,7 @@
 # Shell-agnostic Login Settings
 
 LESS="--quit-if-one-screen --quit-at-eof --RAW-CONTROL-CHARS --chop-long-lines"
-LESSHISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}/lesshst"
+LESSHISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}/less_history"
 VIMINIT=":source ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/vimrc"
 GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME:-${HOME}/.config}/git/gitconfig"
 
