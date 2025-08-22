@@ -1,8 +1,10 @@
 config/coc
 config/gh
+config/gim
 config/git/gitconfig
 config/sh/bash_aliases
 config/vim/vimrc.local
 config/vim/plugged
+local/bin/gim
 local/share/nvim/plugged
 local/state

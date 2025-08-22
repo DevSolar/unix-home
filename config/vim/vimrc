@@ -138,6 +138,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'DevSolar/perforce_autoopen.vim'
 Plug 'neoclide/coc.nvim', {'branch' : 'release'}
 Plug 'preservim/nerdtree'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 " plug.vim -- end
