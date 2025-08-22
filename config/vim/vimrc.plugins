@@ -1,0 +1,92 @@
+" plug.vim -- begin
+call plug#begin()
+
+Plug 'DevSolar/perforce_autoopen.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'gerw/vim-latex-suite'
+Plug 'kana/vim-operator-user'
+Plug 'mhinz/vim-startify'
+Plug 'neoclide/coc.nvim', {'branch' : 'release'}
+Plug 'preservim/nerdtree'
+Plug 'rhysd/vim-clang-format'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/a.vim'
+Plug 'vim-scripts/taglist.vim'
+
+call plug#end()
+" plug.vim -- end
+
+" vim-latex-suite -- begin
+set shellslash                                " Convert backward slashes to forward ones in filename references
+set grepprg=grep\ -nH\ $*                     " Force grep to display file name even in single-file searches
+let g:tex_flavor='latex'                      " Force .tex to mean LaTeX, not plain TeX
+let g:Tex_SmartQuoteOpen = "``"               " Opening quote, English style (German would be "\"`")
+let g:Tex_SmartQuoteClose = "''"              " Closing quote, English style (German would be "\"'")
+let g:Tex_AutoFolding = 0                     " Do not fold on opening file
+let g:Tex_Env_table = "\\begin{table}\<CR>\\caption{<++>}\<CR>\\label{tab:<++>}\<CR>\\begin{tabularx}{<+width+>}{<+columns+>}\<CR>\\hline\<CR><++>\<CR>\\hline\<CR>\\end{tabularx}\<CR>\\end{table}<++>"
+let g:Tex_Env_list = "\\begin{lstlisting}[<++>]\<CR><++>\<CR>\\end{lstlisting}<++>"  " list<F5> gives lstlisting environment
+let g:Tex_Com_list = "\\lstinline{<++>}<++>"                                         " list<F7> gives lstinline command
+" vim-latex-suite -- end
+
+" vim-startify -- begin
+let g:startify_session_dir = g:xdg_state_home .. '/vim/session'
+let g:startify_bookmarks = [ { 'p': '~/pdclib/functions/_PDCLIB' }, { 'r': '~/.config/vim/vimrc' } ]
+let g:startify_files_number = 3
+let g:startify_session_autoload = 1
+let g:startify_change_to_dir = 0
+let g:startify_session_number = 3
+let g:startify_session_sort = 1
+let g:startify_custom_header= 'startify#center(startify#fortune())'
+let g:startify_custom_header_text = [
+            \ '██╗   ██╗██╗███╗   ███╗',
+            \ '██║   ██║██║████╗ ████║',
+            \ '██║   ██║██║██╔████╔██║',
+            \ '╚██╗ ██╔╝██║██║╚██╔╝██║',
+            \ ' ╚████╔╝ ██║██║ ╚═╝ ██║',
+            \ '  ╚═══╝  ╚═╝╚═╝     ╚═╝'
+            \ ]
+let g:startify_custom_header = startify#center( g:startify_custom_header_text )
+let g:startify_relative_path = 1
+let g:startify_use_env = 1
+" vim-startify -- end
+
+" nerdtree -- begin
+nnoremap <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeBookmarksFile = g:xdg_state_home .. '/nerdtree'
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeStatusline = 'NERDTree'
+let g:NERDTreeWinPos = 'right'
+let g:NERDTreeAutoDeleteBuffer = 1
+let g:NERDTreeNaturalSort = 1
+let g:NERDTreeSortOrder = ['\/$', '*']
+let g:NERDTreeSortHiddenFirst = 1
+" nerdtree -- end
+
+" vim-clang-format -- begin
+set textwidth=0
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format_on_insert_leave = 1
+let g:clang_format#auto_formatexpr = 1
+let g:clang_format#enable_fallback_style = 0
+
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :ClangFormat<CR>
+autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+
+nmap <Leader>C :ClangFormatAutoToggle<CR>
+" vim-clang-format -- end
+
+" taglist.vim -- begin
+nnoremap <silent> <F8> :TlistToggle<CR>       " F8 toggles taglist
+let g:Tlist_GainFocus_On_ToggleOpen = 1       " ...give focus...
+let g:Tlist_Exit_OnlyWindow = 1               " ...exit if last window open...
+let g:Tlist_Use_Right_Window = 1              " ...open taglist to the right...
+let g:Highlight_Tag_On_BufEnter = 1           " ...highlight tag when entering buffer...
+let g:Tlist_Auto_Open = 0                     " ...do not open by default...
+let g:Tlist_Auto_Update = 1                   " ...update automatically...
+let g:Tlist_Show_One_File = 0                 " ...show all open files...
+let g:Tlist_Enable_Fold_Column = 0            " ...disable folding...
+let g:Tlist_Use_SingleClick = 1               " ...enable jump-on-click...
+" taglist.vim -- end
