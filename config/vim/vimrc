@@ -137,6 +137,7 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'rhysd/vim-clang-format'
 Plug 'DevSolar/perforce_autoopen.vim'
 Plug 'neoclide/coc.nvim', {'branch' : 'release'}
+Plug 'preservim/nerdtree'
 
 call plug#end()
 " plug.vim -- end
@@ -148,6 +149,37 @@ let g:clang_format#detect_style_file = 1
 let g:clang_format#auto_format_on_insert_leave = 1
 let g:clang_format#auto_formatexpr = 1
 let g:clang_format#enable_fallback_style = 0
+
+let g:startify_session_dir = s:xdg_state_home .. '/vim/session'
+let g:startify_bookmarks = [ { 'p': '~/pdclib/functions/_PDCLIB' }, { 'r': '~/.config/vim/vimrc' } ]
+let g:startify_files_number = 3
+let g:startify_session_autoload = 1
+let g:startify_change_to_dir = 0
+let g:startify_session_number = 3
+let g:startify_session_sort = 1
+let g:startify_custom_header= 'startify#center(startify#fortune())'
+let g:startify_custom_header_text = [
+            \ '██╗   ██╗██╗███╗   ███╗',
+            \ '██║   ██║██║████╗ ████║',
+            \ '██║   ██║██║██╔████╔██║',
+            \ '╚██╗ ██╔╝██║██║╚██╔╝██║',
+            \ ' ╚████╔╝ ██║██║ ╚═╝ ██║',
+            \ '  ╚═══╝  ╚═╝╚═╝     ╚═╝'
+            \ ]
+let g:startify_custom_header = startify#center( g:startify_custom_header_text )
+let g:startify_relative_path = 1
+let g:startify_use_env = 1
+
+nnoremap <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeBookmarksFile = s:xdg_state_home .. '/nerdtree'
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeStatusline = 'NERDTree'
+let g:NERDTreeWinPos = 'right'
+let g:NERDTreeAutoDeleteBuffer = 1
+let g:NERDTreeNaturalSort = 1
+let g:NERDTreeSortOrder = ['\/$', '*']
+let g:NERDTreeSortHiddenFirst = 1
 
 nnoremap <F3> :let &expandtab = !&expandtab<CR>
 
