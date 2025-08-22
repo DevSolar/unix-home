@@ -40,8 +40,6 @@ autocmd FileType make set noexpandtab
 
 set shiftwidth=4                                            " Indent by 4 spaces
 set tabstop=4                                               " 1 TAB = 4 columns
-set statusline=%F%m%r%h%w%q\ %=%{%&fenc=='utf-8'?'':'%#ErrorMsg#'%}[%{&fenc}]%{%&fenc=='utf-8'?'':'%#StatusBar#'%}[C%03v][R%4l/%4L]  " Status line format
-set laststatus=2                                            " Display status line
 set listchars=tab:>-,trail:.,nbsp:@,extends:#               " How to display whitespaces
 set list                                                    " Display whitespaces
 set background=dark                                         " Contrast setting
@@ -119,6 +117,10 @@ let g:Tex_Com_list = "\\lstinline{<++>}<++>"                                    
 
 if filereadable( s:xdg_config_home .. '/vim/vimrc.local' )
     exec 'source' s:xdg_config_home .. '/vim/vimrc.local'
+endif
+
+if filereadable( s:xdg_config_home .. '/vim/vimrc.statusline' )
+    exec 'source' s:xdg_config_home .. '/vim/vimrc.statusline'
 endif
 
 " plug.vim -- begin

@@ -1,0 +1,46 @@
+" I felt bad putting this into the main vimrc, uncommented, like a
+" line of noise...
+
+if ( exists("+statusline") )
+    " This enables displaying the status line always. Vim default
+    " is to display it only when more than one Vim window is opened.
+    set laststatus=2
+
+    highlight User1 ctermbg=Red
+
+    " The Vim status line can show you a wealth of information about
+    " the buffer you are currently editing. Try "help statusline" if
+    " you are interested.
+    set statusline=
+        "\ File type (e.g. [cpp])
+        \%y
+        "\ [RO] for read-only (highlighted)
+        \%1*%r%#StatusBar#
+        "\ File encoding (highlighted if anything other than UTF-8 NOBOM)
+        \%{%(&fenc!='utf-8'&&&fenc!='')?'%1*':''%}
+        \%{%(exists(\"+bomb\")&&&bomb)?'%1*':''%}
+        \[
+            \%{&fenc}
+            \%{(exists(\"+bomb\")&&&bomb)?',BOM':''}
+        \]
+        \%#StatusBar#
+        "\ [+] for modified / unwritten changes, [-] for non-modifiable
+        "\ (highlighted if modified)
+        \%{%&modified?'%1*':''%}
+            \%m
+        \%#StatusBar#
+        "\ New spacing group
+        \%=
+        "\ Full file name
+        \%F
+        "\ New spacing group
+        \%=
+        "\ [help], [Preview], [Quickfix List] or [LocationList} as applicable
+        \%h%w%q
+        "\ Cursor column
+        \[C%03v]
+        "\ Cursor row out of total rows
+        \[R%04l/%04L]
+        "\ Percent of file length
+        \[%P]
+endif
