@@ -32,6 +32,7 @@ let g:Tex_Com_list = "\\lstinline{<++>}<++>"                                    
 " vim-startify -- begin
 let g:startify_session_dir = g:xdg_state_home .. '/vim/session'
 let g:startify_bookmarks = [ { 'p': '~/pdclib/functions/_PDCLIB' }, { 'r': '~/.config/vim/vimrc' } ]
+let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
 let g:startify_files_number = 3
 let g:startify_session_autoload = 1
 let g:startify_change_to_dir = 0

@@ -56,6 +56,10 @@ set scrolloff=3                                             " Keep lines above /
 set mouse=a                                                 " Mouse support all modes
 set pastetoggle=<F2>                                        " 'Paste' autoformat off
 set vb t_vb=                                                " Disable terminal beeps
+set wildmode=longest:full                                   " How Vim handles commandline tab completion
+set wildoptions=pum                                         " Popup for commandline completion options
+set wildmenu
+set autochdir                                               " Automatically cd to open file's directory
 
 color murphy-mod                                            " Color scheme
 syntax on                                                   " Syntax highlighting
