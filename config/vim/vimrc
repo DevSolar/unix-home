@@ -12,19 +12,24 @@ else
     let g:xdg_config_home = $XDG_CONFIG_HOME
 endif
 
+if empty( $XDG_DATA_HOME )
+    let g:xdg_data_home = $HOME .. '/.local/share'
+else
+    let g:xdg_data_home = $XDG_DATA_HOME
+endif
+
 if has( 'nvim' )
     let &viminfofile = g:xdg_state_home . "/nviminfo"
 else
     let &viminfofile = g:xdg_state_home . "/viminfo"
     let g:netrw_home= g:xdg_state_home
 
-    " Versions older than 9.1 need help with XDG layout
-    function XDG_PATH( path )
-        return substitute( a:path, $HOME .. "/.vim,", g:xdg_config_home .. "/vim,", "" )->substitute( $HOME .. "/.vim/after$", g:xdg_config_home .. "/vim/after", "" )
+    function XDG_CONFIG_HOME_PATH( path, home )
+        return substitute( a:path, $HOME .. "/.vim,", a:home .. "/vim,", "" )->substitute( $HOME .. "/.vim/after$", a:home .. "/vim/after", "" )
     endfunction
 
-    exec 'set runtimepath=' . XDG_PATH( &runtimepath )
-    exec 'set packpath=' . XDG_PATH( &packpath )
+    exec 'set runtimepath=' . XDG_CONFIG_HOME_PATH( &runtimepath, g:xdg_config_home )
+    exec 'set packpath=' . XDG_CONFIG_HOME_PATH( &packpath, g:xdg_config_home )
 
 endif
 
@@ -52,7 +57,7 @@ set mouse=a                                                 " Mouse support all 
 set pastetoggle=<F2>                                        " 'Paste' autoformat off
 set vb t_vb=                                                " Disable terminal beeps
 
-color default                                               " Color scheme
+color murphy-mod                                            " Color scheme
 syntax on                                                   " Syntax highlighting
 
 " Ctrl-h / Ctrl-l to handle CamelCase

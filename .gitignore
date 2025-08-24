@@ -7,4 +7,5 @@ config/vim/vimrc.local
 config/vim/plugged
 local/bin/gim
 local/share/nvim/plugged
+local/share/vim/plugged
 local/state

@@ -1,5 +1,5 @@
 " plug.vim -- begin
-call plug#begin()
+call plug#begin( g:xdg_data_home .. "/vim/plugged" )
 
 Plug 'DevSolar/perforce_autoopen.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -50,6 +50,12 @@ let g:startify_custom_header = startify#center( g:startify_custom_header_text )
 let g:startify_relative_path = 1
 let g:startify_use_env = 1
 " vim-startify -- end
+
+" coc.nvim -- begin
+let g:coc_global_extensions = [
+    \ 'coc-clangd'
+    \ ]
+" coc.nvim -- end
 
 " nerdtree -- begin
 nnoremap <C-n> :NERDTreeToggle<CR>

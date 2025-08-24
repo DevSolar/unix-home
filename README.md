@@ -110,5 +110,16 @@ Settings:
           - A little hack by myself to call "p4 open" on readonly files you are
             about to edit (should you have the misfortune to work with Perforce).
 
+        - NERDTree
+
+          - Press <C-n> to get a file browser sidebar, where you can bookmark
+            project directories.
+
+        - Vim Fugitive
+
+          - Instead of leaving Vim for Git commands, just go :Git <command>.
+
+          - Git Blame and other features integrated into Vim
+
 ...and a lot more yet to come, or which I have forgotten to write about at this
 point.
