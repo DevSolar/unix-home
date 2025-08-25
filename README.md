@@ -16,6 +16,10 @@ Installation:
 
   - Start a new bash, enjoy!
 
+Dependencies:
+
+  - Vim plugin CoC requires nodejs, npm, clangd
+
 Features:
 
   - Moving .dotfiles from the home directory into ~/.config and
