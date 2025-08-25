@@ -53,16 +53,20 @@ _dirmissing "${HOME}/.local/share"
 _missing "/etc/profile.d/clean_home.sh" "system/etc/profile.d"
 
 # History files
-_misplaced "${HOME}/.less_history" "${XDG_STATE_HOME:-${HOME}/.local/share}" "LESSHISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
-_misplaced "${HOME}/.bash_history" "${XDG_STATE_HOME:-${HOME}/.local/share}" "HISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_profile"
+_misplaced "${HOME}/.less_history" "${XDG_STATE_HOME:-${HOME}/.local/state}" "LESSHISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
+_misplaced "${HOME}/.bash_history" "${XDG_STATE_HOME:-${HOME}/.local/state}" "HISTFILE" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_profile"
 _misplaced "${HOME}/.gdb_history" "${XDG_STATE_HOME:-${HOME}/.local/state}" "'set history filename'" "${XDG_CONFIG_HOME:-${HOME}/.config}/gdb/gdbinit"
 
 _misplaced "${HOME}/.profile" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh" "sourcing" "/etc/profile.d/clean_home.sh"
 _misplaced "${HOME}/.bash_profile" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh" "sourcing" "/etc/profile.d/clean_home.sh"
 
+_misplaced "${HOME}/.npmrc" "${XDG_CONFIG_HOME:-${HOME}/.config}/npm" "NPM_CONFIG_USERCONFIG" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
+
 _misplaced "${HOME}/.dircolors" "${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors" "sourcing" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_profile"
 
-_misplaced "${HOME}/.viminfo" "${XDG_STATE_HOME:-${HOME}/.local/state}" "VIMINIT" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
+_misplaced "${HOME}/.viminfo" "${XDG_STATE_HOME:-${HOME}/.local/state}" "viminfofile" "${XDG_CONFIG_HOME:-${HOME}/.config}/vim/vimrc"
+_misplaced "${HOME}/.vimrc" "${XDG_CONFIG_HOME:-${HOME}/.config}/vim" "VIMINIT" "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile"
+_misplaced "${HOME}/.vim" "${XDG_CONFIG_HOME:-${HOME}/.config}/vim" "runtimepath / packpath" "${XDG_CONFIG_HOME:-${HOME}/.config}/vim/vimrc"
 
 _unnecessary "${HOME}/.bash_logout"
 _unnecessary "${HOME}/.bashrc"

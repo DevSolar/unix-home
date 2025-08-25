@@ -59,7 +59,7 @@ set vb t_vb=                                                " Disable terminal b
 set wildmode=longest:full                                   " How Vim handles commandline tab completion
 set wildoptions=pum                                         " Popup for commandline completion options
 set wildmenu
-set autochdir                                               " Automatically cd to open file's directory
+"set autochdir                                               " Automatically cd to open file's directory
 
 color murphy-mod                                            " Color scheme
 syntax on                                                   " Syntax highlighting
