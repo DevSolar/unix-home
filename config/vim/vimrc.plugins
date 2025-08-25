@@ -1,99 +1,172 @@
-" plug.vim -- begin
 call plug#begin( g:xdg_data_home .. "/vim/plugged" )
-
-Plug 'DevSolar/perforce_autoopen.vim'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'gerw/vim-latex-suite'
-Plug 'kana/vim-operator-user'
-Plug 'mhinz/vim-startify'
-Plug 'neoclide/coc.nvim', {'branch' : 'release'}
-Plug 'preservim/nerdtree'
-Plug 'rhysd/vim-clang-format'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-scripts/a.vim'
-Plug 'vim-scripts/taglist.vim'
-
+    Plug 'DevSolar/perforce_autoopen.vim'
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    Plug 'gerw/vim-latex-suite'
+    Plug 'kana/vim-operator-user'
+    Plug 'mhinz/vim-startify'
+    Plug 'neoclide/coc.nvim', {'branch' : 'release'}
+    Plug 'preservim/nerdtree'
+    Plug 'rhysd/vim-clang-format'
+    Plug 'tpope/vim-dispatch'
+    Plug 'tpope/vim-fugitive'
+    Plug 'vim-scripts/a.vim'
+    Plug 'vim-scripts/taglist.vim'
 call plug#end()
-" plug.vim -- end
 
-" vim-latex-suite -- begin
-set shellslash                                " Convert backward slashes to forward ones in filename references
-set grepprg=grep\ -nH\ $*                     " Force grep to display file name even in single-file searches
-let g:tex_flavor='latex'                      " Force .tex to mean LaTeX, not plain TeX
-let g:Tex_SmartQuoteOpen = "``"               " Opening quote, English style (German would be "\"`")
-let g:Tex_SmartQuoteClose = "''"              " Closing quote, English style (German would be "\"'")
-let g:Tex_AutoFolding = 0                     " Do not fold on opening file
-let g:Tex_Env_table = "\\begin{table}\<CR>\\caption{<++>}\<CR>\\label{tab:<++>}\<CR>\\begin{tabularx}{<+width+>}{<+columns+>}\<CR>\\hline\<CR><++>\<CR>\\hline\<CR>\\end{tabularx}\<CR>\\end{table}<++>"
-let g:Tex_Env_list = "\\begin{lstlisting}[<++>]\<CR><++>\<CR>\\end{lstlisting}<++>"  " list<F5> gives lstlisting environment
-let g:Tex_Com_list = "\\lstinline{<++>}<++>"                                         " list<F7> gives lstinline command
-" vim-latex-suite -- end
+if has_key( plugs, 'vim-latex-suite' )
+    set shellslash                                " Convert backward slashes to forward ones in filename references
+    set grepprg=grep\ -nH\ $*                     " Force grep to display file name even in single-file searches
+    let g:tex_flavor='latex'                      " Force .tex to mean LaTeX, not plain TeX
+    let g:Tex_SmartQuoteOpen = "``"               " Opening quote, English style (German would be "\"`")
+    let g:Tex_SmartQuoteClose = "''"              " Closing quote, English style (German would be "\"'")
+    let g:Tex_AutoFolding = 0                     " Do not fold on opening file
+    let g:Tex_Env_table = "\\begin{table}\<CR>\\caption{<++>}\<CR>\\label{tab:<++>}\<CR>\\begin{tabularx}{<+width+>}{<+columns+>}\<CR>\\hline\<CR><++>\<CR>\\hline\<CR>\\end{tabularx}\<CR>\\end{table}<++>"
+    let g:Tex_Env_list = "\\begin{lstlisting}[<++>]\<CR><++>\<CR>\\end{lstlisting}<++>"  " list<F5> gives lstlisting environment
+    let g:Tex_Com_list = "\\lstinline{<++>}<++>"                                         " list<F7> gives lstinline command
+endif
 
-" vim-startify -- begin
-let g:startify_session_dir = g:xdg_state_home .. '/vim/session'
-let g:startify_bookmarks = [ { 'p': '~/pdclib/functions/_PDCLIB' }, { 'r': '~/.config/vim/vimrc' } ]
-let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
-let g:startify_files_number = 3
-let g:startify_session_autoload = 1
-let g:startify_change_to_dir = 0
-let g:startify_session_number = 3
-let g:startify_session_sort = 1
-let g:startify_custom_header= 'startify#center(startify#fortune())'
-let g:startify_custom_header_text = [
-            \ '██╗   ██╗██╗███╗   ███╗',
-            \ '██║   ██║██║████╗ ████║',
-            \ '██║   ██║██║██╔████╔██║',
-            \ '╚██╗ ██╔╝██║██║╚██╔╝██║',
-            \ ' ╚████╔╝ ██║██║ ╚═╝ ██║',
-            \ '  ╚═══╝  ╚═╝╚═╝     ╚═╝'
-            \ ]
-let g:startify_custom_header = startify#center( g:startify_custom_header_text )
-let g:startify_relative_path = 1
-let g:startify_use_env = 1
-" vim-startify -- end
+if has_key( plugs, 'vim-startify' )
+    let g:startify_session_dir = g:xdg_state_home .. '/vim/session'
+    let g:startify_bookmarks = [ { 'p': '~/pdclib/functions/_PDCLIB' }, { 'r': '~/.config/vim/vimrc' } ]
+    let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
+    let g:startify_files_number = 3
+    let g:startify_session_autoload = 1
+    let g:startify_change_to_dir = 0
+    let g:startify_session_number = 3
+    let g:startify_session_sort = 1
+    let g:startify_custom_header= 'startify#center(startify#fortune())'
+    let g:startify_custom_header_text = [
+                \ '██╗   ██╗██╗███╗   ███╗',
+                \ '██║   ██║██║████╗ ████║',
+                \ '██║   ██║██║██╔████╔██║',
+                \ '╚██╗ ██╔╝██║██║╚██╔╝██║',
+                \ ' ╚████╔╝ ██║██║ ╚═╝ ██║',
+                \ '  ╚═══╝  ╚═╝╚═╝     ╚═╝'
+                \ ]
+    let g:startify_custom_header = startify#center( g:startify_custom_header_text )
+    let g:startify_relative_path = 1
+    let g:startify_use_env = 1
+endif
 
-" coc.nvim -- begin
-let g:coc_global_extensions = [
-    \ 'coc-clangd'
-    \ ]
-" coc.nvim -- end
+if has_key( plugs, 'coc.nvim' )
+    " See $XDG_DATA_HOME/vim/plugged/coc.nvim/doc/coc-example-config.vim for
+    " more.
+    let g:coc_global_extensions = [
+        \ 'coc-clangd'
+        \ ]
 
-" nerdtree -- begin
-nnoremap <C-n> :NERDTreeToggle<CR>
-let g:NERDTreeBookmarksFile = g:xdg_state_home .. '/nerdtree'
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeShowBookmarks = 1
-let g:NERDTreeStatusline = 'NERDTree'
-let g:NERDTreeWinPos = 'right'
-let g:NERDTreeAutoDeleteBuffer = 1
-let g:NERDTreeNaturalSort = 1
-let g:NERDTreeSortOrder = ['\/$', '*']
-let g:NERDTreeSortHiddenFirst = 1
-" nerdtree -- end
+    " Use tab for trigger completion with characters ahead and navigate
+    " NOTE: There's always complete item selected by default, you may want to enable
+    " no select by `"suggest.noselect": true` in your configuration file
+    " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+    " other plugin before putting this into your config
+    inoremap <silent><expr> <TAB>
+          \ coc#pum#visible() ? coc#pum#next(1) :
+          \ CheckBackspace() ? "\<Tab>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+    "
+    " Use <c-space> to trigger completion
+    if has('nvim')
+      inoremap <silent><expr> <c-space> coc#refresh()
+    else
+      inoremap <silent><expr> <c-@> coc#refresh()
+    endif
 
-" vim-clang-format -- begin
-set textwidth=0
-let g:clang_format#detect_style_file = 1
-let g:clang_format#auto_format_on_insert_leave = 1
-let g:clang_format#auto_formatexpr = 1
-let g:clang_format#enable_fallback_style = 0
+    " Use `[g` and `]g` to navigate diagnostics
+    " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :ClangFormat<CR>
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+    " GoTo code navigation
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
 
-nmap <Leader>C :ClangFormatAutoToggle<CR>
-" vim-clang-format -- end
+    " Use K to show documentation in preview window
+    nnoremap <silent> K :call ShowDocumentation()<CR>
 
-" taglist.vim -- begin
-nnoremap <silent> <F8> :TlistToggle<CR>       " F8 toggles taglist
-let g:Tlist_GainFocus_On_ToggleOpen = 1       " ...give focus...
-let g:Tlist_Exit_OnlyWindow = 1               " ...exit if last window open...
-let g:Tlist_Use_Right_Window = 1              " ...open taglist to the right...
-let g:Highlight_Tag_On_BufEnter = 1           " ...highlight tag when entering buffer...
-let g:Tlist_Auto_Open = 0                     " ...do not open by default...
-let g:Tlist_Auto_Update = 1                   " ...update automatically...
-let g:Tlist_Show_One_File = 0                 " ...show all open files...
-let g:Tlist_Enable_Fold_Column = 0            " ...disable folding...
-let g:Tlist_Use_SingleClick = 1               " ...enable jump-on-click...
-" taglist.vim -- end
+    function! ShowDocumentation()
+      if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+      else
+        call feedkeys('K', 'in')
+      endif
+    endfunction
+
+    " Symbol renaming
+    nmap <leader>rn <Plug>(coc-rename)
+
+    " Formatting selected code
+    xmap <leader>f  <Plug>(coc-format-selected)
+    nmap <leader>f  <Plug>(coc-format-selected)
+
+    " Apply the most preferred quickfix action to fix diagnostic on the current line
+    nmap <leader>qf  <Plug>(coc-fix-current)
+
+    " Remap keys for applying refactor code actions
+    nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+    xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+    nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+    " Remap <C-f> and <C-b> to scroll float windows/popups
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    "
+    " Add `:Format` command to format current buffer
+    command! -nargs=0 Format :call CocActionAsync('format')
+
+    " Add `:Fold` command to fold current buffer
+    command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+    " Mappings for CoCList
+    " Show all diagnostics
+    nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+
+    set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+endif
+
+if has_key( plugs, 'nerdtree' )
+    nnoremap <silent> <F9> :NERDTreeToggle<CR>
+    let g:NERDTreeBookmarksFile = g:xdg_state_home .. '/nerdtree'
+    let g:NERDTreeQuitOnOpen = 1
+    let g:NERDTreeShowBookmarks = 1
+    let g:NERDTreeStatusline = 'NERDTree'
+    let g:NERDTreeWinPos = 'right'
+    let g:NERDTreeAutoDeleteBuffer = 1
+    let g:NERDTreeNaturalSort = 1
+    let g:NERDTreeSortOrder = ['\/$', '*']
+    let g:NERDTreeSortHiddenFirst = 1
+endif
+
+if has_key( plugs, 'vim-clang-format' )
+    set textwidth=0
+    let g:clang_format#detect_style_file = 1
+    let g:clang_format#auto_format_on_insert_leave = 1
+    let g:clang_format#auto_formatexpr = 1
+    let g:clang_format#enable_fallback_style = 0
+
+    autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+    autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :ClangFormat<CR>
+    autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+
+    nmap <Leader>C :ClangFormatAutoToggle<CR>
+endif
+
+if has_key( plugs, 'taglist.vim' )
+    nnoremap <silent> <F8> :TlistToggle<CR>       " F8 toggles taglist
+    let g:Tlist_GainFocus_On_ToggleOpen = 1       " ...give focus...
+    let g:Tlist_Exit_OnlyWindow = 1               " ...exit if last window open...
+    let g:Tlist_Use_Right_Window = 1              " ...open taglist to the right...
+    let g:Highlight_Tag_On_BufEnter = 1           " ...highlight tag when entering buffer...
+    let g:Tlist_Auto_Open = 0                     " ...do not open by default...
+    let g:Tlist_Auto_Update = 1                   " ...update automatically...
+    let g:Tlist_Show_One_File = 0                 " ...show all open files...
+    let g:Tlist_Enable_Fold_Column = 0            " ...disable folding...
+    let g:Tlist_Use_SingleClick = 1               " ...enable jump-on-click...
+endif

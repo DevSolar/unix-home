@@ -59,6 +59,8 @@ Settings:
 
       - plug.vim preinstalled to handle your plugins comfortably
 
+        - Run :PlugInstall to install the plugins configured in vimrc.plugins!
+
       - Meaningful default configuration
 
         - <F2> toggles paste mode
