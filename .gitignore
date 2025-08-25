@@ -2,6 +2,7 @@ config/coc
 config/gh
 config/gim
 config/git/gitconfig
+config/npm
 config/sh/bash_aliases
 config/vim/vimrc.local
 config/vim/plugged
