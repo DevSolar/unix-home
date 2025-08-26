@@ -16,9 +16,43 @@ Installation:
 
   - Start a new bash, enjoy!
 
+Recommendations not part of this repo:
+
+  - Vim users: Install Microsoft PowerToys, and use the keyboard
+    manager to remap Caps-Lock to Escape. This makes a *huge*
+    difference as you don't need to take your left hand off the
+    home row all the time.
+    If you are straddled with a Dell laptop like me, which tells
+    you about every press of the Caps-Lock key with a rather
+    intrusive screen overlay notification, start the Dell Display
+    and Peripheral Manager from the Start Menu, click on the gears
+    icon in the titlebar, and in the "General" tab, disable the
+    Caps-Lock notification.
+
+  - German users: Install the US International Alternate keymap,
+    http://keyboards.jargon-file.org/altinter.zip, and get a US
+    QWERTY keyboard. (NOT a UK QWERTY layout, NOT a "US International"
+    layout. A genuine US keyboard, one where the <Enter> key is not
+    two rows tall, with the []{}\| keys above it.) Apart from that,
+    this layout gives you ;: on one key, '" on another, and <> next
+    to each other, intuitively grouped and without combining AltGr
+    with right-hand keys toward the center of the keyboard (awkward
+    wrist-twister!).
+    The Umlauts are on AltGr-q, AltGr-y and AltGr-p, plus the EsZett
+    on AltGr-s. AltGr with backtick, caret or '" gives you "dead key"
+    behavior for funnyness like ë or î, and çæåð©ñ etc. are also
+    easily available.
+    You get used to the new layout quickly, and again it makes a
+    *huge* difference, especially when typing code. It also makes
+    the Vim shortcut ZZ for save & exit easy.
+
 Dependencies:
 
-  - Vim plugin CoC requires nodejs, npm, clangd
+  - Vim plugin CoC requires nodejs, npm, clangd. Using CoC with MSVC
+    requires the Clang Power Tools plugin to MSVC (and exporting the
+    compilation database for the solution -- right-click in the
+    solution explorer on the solution, Clang Power Tools, Export
+    Compilation Database -- this takes a while to complete).
 
 Features:
 
