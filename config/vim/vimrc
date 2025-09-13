@@ -56,9 +56,8 @@ set scrolloff=3                                             " Keep lines above /
 set mouse=a                                                 " Mouse support all modes
 set pastetoggle=<F2>                                        " 'Paste' autoformat off
 set vb t_vb=                                                " Disable terminal beeps
-set wildmode=longest:full                                   " How Vim handles commandline tab completion
-set wildoptions=pum                                         " Popup for commandline completion options
-set wildmenu
+set wildmenu                                                " Change behavior of command autocompletion
+set wildoptions=pum                                         " Popup for commandline completion
 "set autochdir                                               " Automatically cd to open file's directory
 
 color murphy-mod                                            " Color scheme
@@ -96,6 +95,8 @@ if ! has('nvim')
     set cscopequickfix=s-,c-,d-,i-,t-,e-
 endif
 
+inoremap <F3> <C-o>:let &expandtab = !&expandtab<CR>
+
 if has( 'gui_running' )
     set guifont=Monospace\ 12
     highlight Normal guibg=black guifg=green
@@ -113,5 +114,3 @@ endif
 if filereadable( g:xdg_config_home .. '/vim/vimrc.plugins' )
     exec 'source' g:xdg_config_home .. '/vim/vimrc.plugins'
 endif
-
-nnoremap <F3> :let &expandtab = !&expandtab<CR>
