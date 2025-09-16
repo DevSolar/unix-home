@@ -1,16 +1,17 @@
 call plug#begin( g:xdg_data_home .. "/vim/plugged" )
-    Plug 'DevSolar/perforce_autoopen.vim'
+    Plug 'DevSolar/perforce_autoopen.vim'            " Run 'p4 open' when editing read-only files
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    Plug 'gerw/vim-latex-suite'
+    Plug 'gerw/vim-latex-suite'                      " LaTeX editor plugin, '<++>' placeholders
     Plug 'kana/vim-operator-user'
-    Plug 'mhinz/vim-startify'
-    Plug 'neoclide/coc.nvim', {'branch' : 'release'}
-    Plug 'preservim/nerdtree'
-    Plug 'rhysd/vim-clang-format'
-    Plug 'tpope/vim-dispatch'
-    Plug 'tpope/vim-fugitive'
-    Plug 'vim-scripts/a.vim'
-    Plug 'vim-scripts/taglist.vim'
+    Plug 'mhinz/vim-startify'                        " Start screen with MRU list and bookmarks
+    Plug 'neoclide/coc.nvim', {'branch' : 'release'} " LSP source annotation, autocompletion, and navigation
+    Plug 'preservim/nerdtree'                        " File browser sidebar (<F9>)
+    Plug 'rhysd/vim-clang-format'                    " Auto-formatting using .clang_format file
+    Plug 'tpope/vim-dispatch'                        " Run background commands (e.g. builds) without blocking
+    Plug 'tpope/vim-fugitive'                        " Git editor plugin, call ':Git' from within Vim
+    Plug 'vim-scripts/a.vim'                         " ':A' to switch between header and implementation
+    Plug 'vim-scripts/taglist.vim'                   " Tag browser sidebar (<F8>)
+    Plug 'tribela/vim-transparent'                   " Overriding background colors so Vim can be transparent
 call plug#end()
 
 if has_key( plugs, 'vim-latex-suite' )
