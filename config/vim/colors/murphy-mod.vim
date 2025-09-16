@@ -29,10 +29,10 @@ hi! link StatusLineTerm StatusLine
 hi! link StatusLineTermNC StatusLineNC
 hi! link MessageWindow Pmenu
 hi! link PopupNotification Todo
-hi Normal guifg=#87ff87 guibg=#000000 gui=NONE cterm=NONE
+hi Normal guifg=#bcbcbc guibg=#000000 gui=NONE cterm=NONE
 hi EndOfBuffer guifg=#0000ff guibg=#000000 gui=NONE cterm=NONE
-hi StatusLine guifg=#ffffff guibg=#00008b gui=NONE cterm=NONE
-hi StatusLineNC guifg=#ffffff guibg=#3a3a3a gui=NONE cterm=NONE
+hi StatusLine guifg=#ffffff guibg=#444444 gui=NONE cterm=NONE
+hi StatusLineNC guifg=#ffffff guibg=#262626 gui=NONE cterm=NONE
 hi VertSplit guifg=#ffffff guibg=#3a3a3a gui=NONE cterm=NONE
 hi Pmenu guifg=#ffffff guibg=#444444 gui=NONE cterm=NONE
 hi PmenuSel guifg=#000000 guibg=#ffff00 gui=NONE cterm=NONE
@@ -101,10 +101,10 @@ if s:t_Co >= 256
   hi! link StatusLineTermNC StatusLineNC
   hi! link MessageWindow Pmenu
   hi! link PopupNotification Todo
-  hi Normal ctermfg=120 ctermbg=16 cterm=NONE
+  hi Normal ctermfg=250 ctermbg=16 cterm=NONE
   hi EndOfBuffer ctermfg=21 ctermbg=16 cterm=NONE
-  hi StatusLine ctermfg=231 ctermbg=18 cterm=NONE
-  hi StatusLineNC ctermfg=231 ctermbg=237 cterm=NONE
+  hi StatusLine ctermfg=231 ctermbg=235 cterm=NONE
+  hi StatusLineNC ctermfg=231 ctermbg=250 cterm=NONE
   hi VertSplit ctermfg=231 ctermbg=237 cterm=NONE
   hi Pmenu ctermfg=231 ctermbg=238 cterm=NONE
   hi PmenuSel ctermfg=16 ctermbg=226 cterm=NONE
@@ -151,7 +151,7 @@ if s:t_Co >= 256
   hi Statement ctermfg=226 ctermbg=NONE cterm=NONE
   hi Constant ctermfg=231 ctermbg=NONE cterm=NONE
   hi PreProc ctermfg=223 ctermbg=NONE cterm=NONE
-  hi Type ctermfg=250 ctermbg=NONE cterm=NONE
+  hi Type ctermfg=120 ctermbg=NONE cterm=NONE
   hi Special ctermfg=201 ctermbg=NONE cterm=NONE
   hi Directory ctermfg=51 ctermbg=NONE cterm=NONE
   hi Conceal ctermfg=250 ctermbg=NONE cterm=NONE
@@ -166,9 +166,9 @@ if s:t_Co >= 256
 endif
 
 if s:t_Co >= 16
-  hi Normal ctermfg=green ctermbg=black cterm=NONE
+  hi Normal ctermfg=grey ctermbg=black cterm=NONE
   hi EndOfBuffer ctermfg=blue ctermbg=black cterm=NONE
-  hi StatusLine ctermfg=white ctermbg=darkblue cterm=NONE
+  hi StatusLine ctermfg=white ctermbg=grey cterm=NONE
   hi StatusLineNC ctermfg=white ctermbg=darkgrey cterm=NONE
   hi VertSplit ctermfg=white ctermbg=darkgrey cterm=NONE
   hi Pmenu ctermfg=white ctermbg=darkgrey cterm=NONE
@@ -216,7 +216,7 @@ if s:t_Co >= 16
   hi Statement ctermfg=yellow ctermbg=NONE cterm=NONE
   hi Constant ctermfg=white ctermbg=NONE cterm=NONE
   hi PreProc ctermfg=darkmagenta ctermbg=NONE cterm=NONE
-  hi Type ctermfg=grey ctermbg=NONE cterm=NONE
+  hi Type ctermfg=green ctermbg=NONE cterm=NONE
   hi Special ctermfg=magenta ctermbg=NONE cterm=NONE
   hi Directory ctermfg=cyan ctermbg=NONE cterm=NONE
   hi Conceal ctermfg=grey ctermbg=NONE cterm=NONE
@@ -231,7 +231,7 @@ if s:t_Co >= 16
 endif
 
 if s:t_Co >= 8
-  hi Normal ctermfg=darkgreen ctermbg=black cterm=NONE
+  hi Normal ctermfg=grey ctermbg=black cterm=NONE
   hi EndOfBuffer ctermfg=darkblue ctermbg=NONE cterm=bold
   hi StatusLine ctermfg=darkblue ctermbg=grey cterm=bold,reverse
   hi StatusLineNC ctermfg=grey ctermbg=black cterm=reverse
@@ -280,7 +280,7 @@ if s:t_Co >= 8
   hi Statement ctermfg=darkyellow ctermbg=NONE cterm=NONE
   hi Constant ctermfg=grey ctermbg=NONE cterm=bold
   hi PreProc ctermfg=darkmagenta ctermbg=NONE cterm=bold
-  hi Type ctermfg=grey ctermbg=NONE cterm=NONE
+  hi Type ctermfg=darkgreen ctermbg=NONE cterm=NONE
   hi Special ctermfg=darkmagenta ctermbg=NONE cterm=NONE
   hi Directory ctermfg=darkcyan ctermbg=NONE cterm=NONE
   hi Conceal ctermfg=grey ctermbg=NONE cterm=NONE
