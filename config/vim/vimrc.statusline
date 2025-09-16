@@ -24,6 +24,12 @@ if ( exists("+statusline") )
             \%{(exists(\"+bomb\")&&&bomb)?',BOM':''}
         \]
         \%#StatusBar#
+        "\ File format (highlighted if anything other than unix)
+        \%{%(&ff!='unix'&&&ff!='')?'%1*':''%}
+        \[
+            \%{&ff}
+        \]
+        \%#StatusBar#
         "\ [+] for modified / unwritten changes, [-] for non-modifiable
         "\ (highlighted if modified)
         \%{%&modified?'%1*':''%}
