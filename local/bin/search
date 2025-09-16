@@ -1,0 +1,51 @@
+#!/bin/bash
+
+if test ${#} -eq 0
+then
+    echo " Usage:"
+    echo "   search [options] [regex]"
+    echo "     -c: Limit search to *.c / *.cpp files"
+    echo "     -h: Limit search to *.h / *.hpp files"
+    echo "     -s: Limit search to *.c / *.cpp / *.h / *.hpp files"
+    echo "     -v: Limit search to *.\(cs\|vc\|vcx\)proj / *.sln files"
+    echo "     -p: Search for filename\(s\), not content"
+    exit 0
+fi
+
+NAMES=()
+PRE=( -exec grep -anH )
+POST=( {} \+ )
+
+while true
+do
+    case ${1} in
+        -c)
+            NAMES=( \( -name \*.cpp -o -name \*.c \) )
+            shift
+            ;;
+        -h)
+            NAMES=( \( -name \*.hpp -o -name \*.h \) )
+            shift
+            ;;
+        -s)
+            NAMES=( \( -name \*.hpp -o -name \*.h -o -name \*.cpp -o -name \*.c \) )
+            shift
+            ;;
+        -v)
+            NAMES=( \( -name \*.csproj -o -name \*.vcproj -o -name \*.vcxproj -o -name \*.sln \) )
+            shift
+            ;;
+        -p)
+            shift
+            PRE=( -name )
+            POST=()
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+EXCLUSIONS=( ! -path ./bin/\* ! -path ./packages/\* ! -path ./_\* ! -path ./_obj/\* ! -path ./.\* )
+
+find . -type f "${EXCLUSIONS[@]}" "${NAMES[@]}" "${PRE[@]}" "$@" "${POST[@]}"
