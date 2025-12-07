@@ -28,7 +28,7 @@ do
             shift
             ;;
         -s)
-            NAMES=( \( -name \*.hpp -o -name \*.h -o -name \*.cpp -o -name \*.c \) )
+            NAMES=( \( -name \*.hpp -o -name \*.h -o -name \*.cpp -o -name \*.c -o -name \*.cs \) )
             shift
             ;;
         -v)
