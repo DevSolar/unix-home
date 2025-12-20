@@ -5,6 +5,7 @@ call plug#begin( g:xdg_data_home .. "/vim/plugged" )
     Plug 'kana/vim-operator-user'
     Plug 'mhinz/vim-startify'                        " Start screen with MRU list and bookmarks
     Plug 'neoclide/coc.nvim', {'branch' : 'release'} " LSP source annotation, autocompletion, and navigation
+    Plug 'potamides/painless-digraph'                " \de to get into digraph mode, \dd to get out
     Plug 'preservim/nerdtree'                        " File browser sidebar (<F9>)
     Plug 'rhysd/vim-clang-format'                    " Auto-formatting using .clang_format file
     Plug 'tpope/vim-dispatch'                        " Run background commands (e.g. builds) without blocking
@@ -136,6 +137,16 @@ if has_key( plugs, 'coc.nvim' )
 
     set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
     set signcolumn=yes
+
+    inoremap <silent><expr> <Tab>
+                \ coc#pum#visible() ? coc#pum#next(1) :
+                \ coc#refresh()
+
+    inoremap <silent><expr> <S-Tab>
+                \ coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+    inoremap <silent><expr> <Esc>
+                \ coc#pum#visible() ? coc#pum#cancel() : "\<Esc>"
 endif
 
 if has_key( plugs, 'nerdtree' )
@@ -163,6 +174,10 @@ if has_key( plugs, 'vim-clang-format' )
     autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
     nmap <Leader>C :ClangFormatAutoToggle<CR>
+endif
+
+if has_key( plugs, 'vim-dispatch' )
+    let b:start = '/bin/bash -l'
 endif
 
 if has_key( plugs, 'taglist.vim' )
