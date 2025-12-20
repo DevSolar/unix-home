@@ -1,3 +1,9 @@
+function! SynGroup()
+    return synIDattr(synID(line('.'), col('.'),1),'name') . '->' . synIDattr(synIDtrans(synID(line('.'), col('.'),1)),'name')
+endfunction
+
+set showtabline=2
+
 " I felt bad putting this into the main vimrc, uncommented, like a
 " line of noise...
 
@@ -37,10 +43,8 @@ if ( exists("+statusline") )
         \%#StatusBar#
         "\ New spacing group
         \%=
-        "\ Full file name
-        \%F
-        "\ New spacing group
-        \%=
+        "\ Highlighting group
+        \%{SynGroup()}
         "\ [help], [Preview], [Quickfix List] or [LocationList} as applicable
         \%h%w%q
         "\ Cursor column
@@ -50,3 +54,61 @@ if ( exists("+statusline") )
         "\ Percent of file length
         \[%P]
 endif
+
+" https://vi.stackexchange.com/questions/9880/retitling-tab-labels/9881#9881
+set tabline=%!MyTabLine()
+
+" Set the entire tabline
+function! MyTabLine()
+    let s = ''
+    for i in range(tabpagenr('$'))
+        " select the highlighting
+        if i + 1 == tabpagenr()
+            let s .= '%#TabLineSel#'
+        else
+            let s .= '%#TabLine#'
+        endif
+
+        " set the tab page number (for mouse clicks)
+        let s .= '%' . (i + 1) . 'T'
+
+        " the label is made by MyTabLabel()
+        let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+    endfor
+
+    " after the last tab fill with TabLineFill and reset tab page nr
+    let s .= '%#TabLineFill#%T'
+
+    " right-align the label to close the current tab page
+    if tabpagenr('$') > 1
+        let s .= '%=%#TabLine#%999Xclose'
+    endif
+
+    return s
+endfunction
+
+" Set the label for a single tab
+function! MyTabLabel(n)
+
+    " This is run in the scope of the active tab, so t:name
+    " won't work.
+    let l:tabname = gettabvar(a:n, 'name', '')
+
+    " This variable exists!
+    if l:tabname != ''
+        return l:tabname
+    endif
+
+    " If it's not found fall back to the buffer name
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let l:bname = bufname(buflist[winnr - 1])
+
+    " Unnamed buffer, scratch buffer, etc. Could be more detailed.
+    if l:bname == ''
+        let l:bname = '[No Name]'
+    endif
+
+    return l:bname
+endfunction
+

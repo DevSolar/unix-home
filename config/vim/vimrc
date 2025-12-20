@@ -37,7 +37,7 @@ filetype on                                                    " Auto-detect fil
 filetype plugin indent on                                    " Auto-indent
 
 set expandtab
-autocmd FileType cpp set noexpandtab
+"autocmd FileType cpp set noexpandtab
 autocmd FileType make set noexpandtab
 
 " If a system gives encoding problems, try uncommenting this.
