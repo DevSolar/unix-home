@@ -1,0 +1,3 @@
+shelved = changes -u $(P4USER) -c $(P4CLIENT) -s shelved
+pending = changes -u $(P4USER) -c $(P4CLIENT) -s pending
+changes = changes -u $(P4USER) -c $(P4CLIENT)

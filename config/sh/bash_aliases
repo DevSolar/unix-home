@@ -2,3 +2,6 @@
 
 alias ll='ls -AlF'
 alias la='ls -A'
+
+# Aliases and functions -- local to this machine
+test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local"

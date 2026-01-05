@@ -33,17 +33,17 @@ else
 
 endif
 
-filetype on                                                    " Auto-detect filetype
-filetype plugin indent on                                    " Auto-indent
+filetype on                                                 " Auto-detect filetype
+filetype plugin indent on                                   " Auto-indent
 
-set expandtab
-"autocmd FileType cpp set noexpandtab
-autocmd FileType make set noexpandtab
+set expandtab                                               " No tabs
+autocmd FileType make set noexpandtab                       " ...except for Makefiles
 
 " If a system gives encoding problems, try uncommenting this.
 "set encoding=utf-8
 
 set shiftwidth=4                                            " Indent by 4 spaces
+autocmd FileType xml set shiftwidth=2                       " ...except for XML
 set tabstop=4                                               " 1 TAB = 4 columns
 set listchars=tab:>-,trail:.,nbsp:@,extends:#               " How to display whitespaces
 set list                                                    " Display whitespaces

@@ -5,6 +5,13 @@ LESS="--quit-if-one-screen --quit-at-eof --RAW-CONTROL-CHARS --chop-long-lines"
 LESSHISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/less_history"
 VIMINIT=":source ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/vimrc"
 GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME:-${HOME}/.config}/git/gitconfig"
-NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME:-${HOME}/.config}/npm/npmrc"
+P4CONFIG="${XDG_CONFIG_HOME:-${HOME}/.config}/p4/config"
+P4ENVIRO="${XDG_STATE_HOME:-${HOME}/.local/state}/p4/enviro"
+P4TICKETS="${XDG_STATE_HOME:-${HOME}/.local/state}/p4/tickets"
+P4ALIASES="${XDG_CONFIG_HOME:-${HOME}/.config}/p4/aliases"
 
 export EDITOR LESS LESSHISTFILE VIMINIT GIT_CONFIG_GLOBAL
+
+# Shell-agnostic Login Settings -- local to this machine
+test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile_local" && . ${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile_local
+
