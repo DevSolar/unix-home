@@ -3,6 +3,7 @@ config/gh
 config/gim
 config/git/gitconfig.local
 config/npm
+config/pulse
 config/sh/profile_local
 config/sh/bash_aliases_local
 config/ssh
