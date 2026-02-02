@@ -10,8 +10,30 @@ P4ENVIRO="${XDG_STATE_HOME:-${HOME}/.local/state}/p4/enviro"
 P4TICKETS="${XDG_STATE_HOME:-${HOME}/.local/state}/p4/tickets"
 P4ALIASES="${XDG_CONFIG_HOME:-${HOME}/.config}/p4/aliases"
 
-export EDITOR LESS LESSHISTFILE VIMINIT GIT_CONFIG_GLOBAL
+ssh_pid_file="${XDG_STATE_HOME:-${HOME}/.local/state}/ssh-agent.pid"
+SSH_AUTH_SOCK="${XDG_STATE_HOME:-${HOME}/.local/state}/ssh-agent.sock"
+
+if [ -z "$SSH_AGENT_PID" ]
+then
+    if [ -r "$ssh_pid_file" ]
+    then
+        # no PID exported, try to get it from pidfile
+        SSH_AGENT_PID=$(cat "$ssh_pid_file")
+    fi
+fi
+
+if ! kill -0 $SSH_AGENT_PID &> /dev/null
+then
+    # the agent is not running, start it
+    rm "$SSH_AUTH_SOCK" &> /dev/null
+    >&2 echo "Starting SSH agent"
+    eval "$(ssh-agent -s -a "$SSH_AUTH_SOCK")"
+    echo "$SSH_AGENT_PID" > "$ssh_pid_file"
+
+    >&2 echo "Started ssh-agent with '$SSH_AUTH_SOCK'"
+fi
+
+export EDITOR LESS LESSHISTFILE VIMINIT GIT_CONFIG_GLOBAL SSH_AGENT_PID SSH_AUTH_SOCK
 
 # Shell-agnostic Login Settings -- local to this machine
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile_local" && . ${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile_local
-

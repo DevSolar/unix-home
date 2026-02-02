@@ -139,7 +139,7 @@ if has_key( plugs, 'coc.nvim' )
     set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
     set signcolumn=yes
 
-    inoremap <silent><expr> <Tab>
+    inoremap <silent><expr> <C-Tab>
                 \ coc#pum#visible() ? coc#pum#next(1) :
                 \ coc#refresh()
 

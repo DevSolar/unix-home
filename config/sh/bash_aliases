@@ -1,7 +1,20 @@
 # Aliases and functions
 
-alias ll='ls -AlF'
+alias ll='ls -AhlF'
 alias la='ls -A'
+
+if [[ -z $STY && ! -z $SSH_CLIENT ]]
+then
+    screen -RR
+fi
+
+#if [ "$PS1" != "" -a "${STARTED_TMUX:-x}" = x -a "${SSH_TTY:-x}" != x ]
+#then
+#        STARTED_TMUX=1; export STARTED_TMUX
+#        sleep 1
+#        ( (tmux has-session -t remote && tmux attach-session -t remote) || (tmux new-session -s remote) ) && exit 0
+#        echo "tmux failed to start"
+#fi
 
 # Aliases and functions -- local to this machine
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local"
