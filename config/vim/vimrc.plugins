@@ -193,3 +193,7 @@ if has_key( plugs, 'taglist.vim' )
     let g:Tlist_Enable_Fold_Column = 0            " ...disable folding...
     let g:Tlist_Use_SingleClick = 1               " ...enable jump-on-click...
 endif
+
+if filereadable( g:xdg_config_home .. '/vim/vimrc.plugins.local' )
+    exec 'source' g:xdg_config_home .. '/vim/vimrc.plugins.local'
+endif
