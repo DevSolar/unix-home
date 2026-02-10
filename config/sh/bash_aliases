@@ -46,5 +46,7 @@ function vimp()
     eval "$cmd -c \"wincmd t\""
 }
 
+alias rebuild="cmake -E rm -rf build Testing && cmake -B build && cmake --build build && ctest --test-dir build"
+
 # Aliases and functions -- local to this machine
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local"
