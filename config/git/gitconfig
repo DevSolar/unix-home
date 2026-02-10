@@ -1,7 +1,7 @@
 [core]
 	autocrlf = input
 	eol = lf
-	filemode = true
+	filemode = false
 	editor = vim
 [safe]
 	directory = ~
