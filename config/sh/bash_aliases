@@ -16,5 +16,33 @@ fi
 #        echo "tmux failed to start"
 #fi
 
+function vimp()
+ {
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: vimpairs file1 file2 [file3 file4 ...]"
+        return 1
+    fi
+
+    # Start building the command with the first file
+    local cmd="vim $1"
+    shift
+    local newcol=0
+
+    while [ "$#" -gt 0 ]
+    do
+        cmd="$cmd -c \"split $1\""
+        shift
+        if [ $newcol -eq 0 ]
+        then
+            newcol=1
+        else
+            cmd="$cmd -c \"wincmd L\""
+            newcol=0
+        fi
+    done
+
+    eval "$cmd -c \"wincmd t\""
+}
+
 # Aliases and functions -- local to this machine
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local"
