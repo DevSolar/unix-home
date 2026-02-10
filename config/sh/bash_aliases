@@ -18,8 +18,10 @@ fi
 
 function vimp()
  {
-    if [ "$#" -lt 1 ]; then
-        echo "Usage: vimpairs file1 file2 [file3 file4 ...]"
+    if [ "$#" -lt 1 -o "${1}" == "--help" -o "${1}" == "-h" ]; then
+        echo "Vim pairs / Vim packed"
+        echo
+        echo "Usage: vimp file1 file2 [file3 file4 ...]"
         return 1
     fi
 
