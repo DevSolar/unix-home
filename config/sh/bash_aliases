@@ -2,6 +2,7 @@
 
 alias ll='ls -AhlF'
 alias la='ls -A'
+alias rebuild='cmake -E rm -rf build && cmake -B build && cmake --build build && ctest --test-dir build'
 
 if [[ -z $STY && ! -z $SSH_CLIENT ]]
 then
