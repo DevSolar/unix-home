@@ -1,7 +1,7 @@
 # Shell-agnostic Login Settings
 
 EDITOR=vim
-LESS="--quit-if-one-screen --quit-at-eof --RAW-CONTROL-CHARS --chop-long-lines"
+LESS="--quit-if-one-screen --quit-at-eof --no-init --RAW-CONTROL-CHARS --chop-long-lines"
 LESSHISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/less_history"
 VIMINIT=":source ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/vimrc"
 GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME:-${HOME}/.config}/git/gitconfig"
