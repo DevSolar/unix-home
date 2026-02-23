@@ -181,6 +181,10 @@ if has_key( plugs, 'vim-dispatch' )
     let b:start = '/bin/bash -l'
 endif
 
+if has_key( plugs, 'a.vim' )
+    let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,sfr:../../src'
+endif
+
 if has_key( plugs, 'taglist.vim' )
     nnoremap <silent> <F8> :TlistToggle<CR>       " F8 toggles taglist
     let g:Tlist_GainFocus_On_ToggleOpen = 1       " ...give focus...
