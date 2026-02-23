@@ -18,8 +18,9 @@ fi
 #fi
 
 function vimp()
- {
-    if [ "$#" -lt 1 -o "${1}" == "--help" -o "${1}" == "-h" ]; then
+{
+    if [ "$#" -lt 1 -o "${1}" == "--help" -o "${1}" == "-h" ]
+    then
         echo "Vim pairs / Vim packed"
         echo
         echo "Usage: vimp file1 file2 [file3 file4 ...]"
@@ -42,6 +43,28 @@ function vimp()
             cmd="$cmd -c \"wincmd L\""
             newcol=0
         fi
+    done
+
+    eval "$cmd -c \"wincmd t\""
+}
+
+function vims()
+{
+    if [ "$#" -lt 1 -o "${1}" == "--help" -o "${1}" == "-h" ]
+    then
+        echo "Vim source"
+        echo
+        echo "Usage: vims file1 [file2 ...]"
+        return 1
+    fi
+
+    local cmd="vim $1 -c \"AS\""
+    shift
+
+    while [ "$#" -gt 0 ]
+    do
+        cmd="$cmd -c \"split $1\" -c \"wincmd L\" -c \"AS\""
+        shift
     done
 
     eval "$cmd -c \"wincmd t\""
