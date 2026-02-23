@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+if [ -d "/mnt/c" ]
+then
+    C_DIR="/mnt/c"
+else
+    if [ -d "/c" ]
+    then
+        C_DIR="/c"
+    else
+        echo "ERROR: No Windows drives mapped."
+        exit 1
+    fi
+fi
+
+CMAKE=$(ls ${C_DIR}/Program\ Files/Microsoft\ Visual\ Studio/*/*/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe | head -n 1)
+
+VCPKG_PATH=$(wslpath -m $(dirname $(which vcpkg.exe)))/scripts/buildsystems/vcpkg.cmake
+
+export CMAKE_TOOLCHAIN_FILE=C:\\Users\\solar\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake
+
+"${CMAKE}" "$@"
