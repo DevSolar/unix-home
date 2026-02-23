@@ -15,4 +15,4 @@ fi
 
 DOTNET=$(ls ${C_DIR}/Program\ Files/Microsoft\ Visual\ Studio/*/*/dotnet/*/runtime/dotnet.exe | head -n 1)
 
-"${DOTNET}" $*
+"${DOTNET}" "$@"

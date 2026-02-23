@@ -13,4 +13,6 @@ else
     fi
 fi
 
-${C_DIR}/Program\ Files/Microsoft\ Visual\ Studio/*/*/MSBuild/Current/Bin/MSBuild.exe -p:Platform="x64" -nologo -p:GenerateFullPaths=true "-clp:ForceConsoleColor" -verbosity:m -m $* | sed -e "s@\\\\@/@g" -e "s@C:/@${C_DIR}/@g"
+MSBUILD=$(ls ${C_DIR}/Program\ Files/Microsoft\ Visual\ Studio/*/*/MSBuild/Current/Bin/MSBuild.exe | head -n 1)
+
+"${MSBUILD}" -p:Platform="x64" -nologo -p:GenerateFullPaths=true "-clp:ForceConsoleColor" -verbosity:m -m "$@" | sed -e "s@\\\\@/@g" -e "s@C:/@${C_DIR}/@g"
