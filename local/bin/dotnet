@@ -1,3 +1,18 @@
 #!/usr/bin/bash
 
-/mnt/c/Program\ Files/Microsoft\ Visual\ Studio/*/*/dotnet/*/runtime/dotnet.exe $*
+if [ -d "/mnt/c" ]
+then
+    C_DIR="/mnt/c"
+else
+    if [ -d "/c" ]
+    then
+        C_DIR="/c"
+    else
+        echo "ERROR: No Windows drives mapped."
+        exit 1
+    fi
+fi
+
+DOTNET=$(ls ${C_DIR}/Program\ Files/Microsoft\ Visual\ Studio/*/*/dotnet/*/runtime/dotnet.exe | head -n 1)
+
+"${DOTNET}" $*
