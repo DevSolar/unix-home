@@ -8,6 +8,7 @@ config/sh/profile_local
 config/sh/bash_aliases_local
 config/ssh
 config/vim/vimrc.local
+config/vim/vimrc.plugins.local
 config/vim/plugged
 local/bin/gim
 local/include
