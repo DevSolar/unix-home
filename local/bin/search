@@ -32,7 +32,7 @@ do
             shift
             ;;
         -v)
-            NAMES=( \( -name \*.csproj -o -name \*.vcproj -o -name \*.vcxproj -o -name \*.sln \) )
+            NAMES=( \( -name \*.csproj -o -name \*.vcproj -o -name \*.vcxproj -o -name \*.sln -o name \*.props \) )
             shift
             ;;
         -p)
