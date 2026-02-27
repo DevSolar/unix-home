@@ -4,11 +4,6 @@ alias ll='ls -AhlF'
 alias la='ls -A'
 alias rebuild='cmake -E rm -rf build && cmake -B build && cmake --build build && ctest --test-dir build'
 
-if [[ -z $STY && ! -z $SSH_CLIENT ]]
-then
-    screen -RR
-fi
-
 #if [ "$PS1" != "" -a "${STARTED_TMUX:-x}" = x -a "${SSH_TTY:-x}" != x ]
 #then
 #        STARTED_TMUX=1; export STARTED_TMUX
