@@ -13,5 +13,7 @@ config/vim/plugged
 local/bin/gim
 local/bin/update-gemini
 local/include
-local/share
+local/share/nvim/site/autoload/plug.vim.old
+local/share/nvim/site/plugged
+local/share/vim/plugged
 local/state
