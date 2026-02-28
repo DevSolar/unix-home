@@ -11,6 +11,7 @@ config/vim/vimrc.local
 config/vim/vimrc.plugins.local
 config/vim/plugged
 local/bin/gim
+local/bin/update-gemini
 local/include
 local/share
 local/state
