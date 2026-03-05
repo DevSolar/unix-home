@@ -2,7 +2,20 @@
 
 shopt -s nocasematch
 
-POSSIBLE_P4=("/usr/bin/p4" "/c/Program Files/Perforce/p4.exe")
+if [ -d "/mnt/c" ]
+then
+    C_DIR="/mnt/c"
+else
+    if [ -d "/c" ]
+    then
+        C_DIR="/c"
+    else
+        echo "ERROR: No Windows drives mapped."
+        exit 1
+    fi
+fi
+
+POSSIBLE_P4=("/usr/bin/p4" "${C_DIR}/Program Files/Perforce/p4.exe")
 
 P4EXE=""
 
