@@ -56,3 +56,23 @@ then
         . /etc/bash_completion
     fi
 fi
+
+# Path to a file that stores the agent environment variables
+SSH_ENV="${XDG_STATE_HOME:-${HOME}/.local/state}/ssh-agent.env"
+
+function start_agent {
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+}
+
+# Check if the env file exists and source it
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent
+    }
+else
+    start_agent
+fi
