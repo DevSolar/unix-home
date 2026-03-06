@@ -4,13 +4,7 @@ alias ll='ls -AhlF'
 alias la='ls -A'
 alias rebuild='cmake -E rm -rf build && cmake -B build && cmake --build build && ctest --test-dir build'
 
-#if [ "$PS1" != "" -a "${STARTED_TMUX:-x}" = x -a "${SSH_TTY:-x}" != x ]
-#then
-#        STARTED_TMUX=1; export STARTED_TMUX
-#        sleep 1
-#        ( (tmux has-session -t remote && tmux attach-session -t remote) || (tmux new-session -s remote) ) && exit 0
-#        echo "tmux failed to start"
-#fi
+alias vshell='vim -c ":Vshell"'
 
 function vimp()
 {
@@ -64,8 +58,6 @@ function vims()
 
     eval "$cmd -c \"wincmd t\""
 }
-
-alias rebuild="cmake -E rm -rf build Testing && cmake -B build && cmake --build build && ctest --test-dir build"
 
 # Aliases and functions -- local to this machine
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local"

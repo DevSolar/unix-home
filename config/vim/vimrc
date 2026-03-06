@@ -103,6 +103,19 @@ if has( 'gui_running' )
     set lines=30 columns=120
 endif
 
+function! VerticalShells()
+    only
+    terminal
+    wincmd w
+    terminal
+    wincmd w
+    quit
+    wincmd L
+    wincmd w
+endfunction
+
+command! Vshell call VerticalShells()
+
 if filereadable( g:xdg_config_home .. '/vim/vimrc.local' )
     exec 'source' g:xdg_config_home .. '/vim/vimrc.local'
 endif
