@@ -8,8 +8,9 @@ P4CONFIG="${XDG_CONFIG_HOME:-${HOME}/.config}/p4/config"
 P4ENVIRO="${XDG_STATE_HOME:-${HOME}/.local/state}/p4/enviro"
 P4TICKETS="${XDG_STATE_HOME:-${HOME}/.local/state}/p4/tickets"
 P4ALIASES="${XDG_CONFIG_HOME:-${HOME}/.config}/p4/aliases"
+VIMINIT=":source ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/vimrc"
 
-export EDITOR LESS LESSHISTFILE GIT_CONFIG_GLOBAL
+export EDITOR LESS LESSHISTFILE GIT_CONFIG_GLOBAL P4CONFIG P4TICKETS P4ALIASES VIMINIT
 
 # Shell-agnostic Login Settings -- local to this machine
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile_local" && . ${XDG_CONFIG_HOME:-${HOME}/.config}/sh/profile_local

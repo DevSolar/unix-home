@@ -3,8 +3,8 @@
 alias ll='ls -AhlF'
 alias la='ls -A'
 alias rebuild='cmake -E rm -rf build && cmake -B build && cmake --build build && ctest --test-dir build'
-
 alias vshell='vim -c ":Vshell"'
+alias nvim='unset VIMINIT; nvim'
 
 function vimp()
 {
