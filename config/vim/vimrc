@@ -18,20 +18,15 @@ else
     let g:xdg_data_home = $XDG_DATA_HOME
 endif
 
-if has( 'nvim' )
-    let &viminfofile = g:xdg_state_home . "/nviminfo"
-else
-    let &viminfofile = g:xdg_state_home . "/viminfo"
-    let g:netrw_home= g:xdg_state_home
+let &viminfofile = g:xdg_state_home . "/viminfo"
+let g:netrw_home= g:xdg_state_home
 
-    function XDG_CONFIG_HOME_PATH( path, home )
-        return substitute( a:path, $HOME .. "/.vim,", a:home .. "/vim,", "" )->substitute( $HOME .. "/.vim/after$", a:home .. "/vim/after", "" )
-    endfunction
+function XDG_CONFIG_HOME_PATH( path, home )
+    return substitute( a:path, $HOME .. "/.vim,", a:home .. "/vim,", "" )->substitute( $HOME .. "/.vim/after$", a:home .. "/vim/after", "" )
+endfunction
 
-    exec 'set runtimepath=' . XDG_CONFIG_HOME_PATH( &runtimepath, g:xdg_config_home )
-    exec 'set packpath=' . XDG_CONFIG_HOME_PATH( &packpath, g:xdg_config_home )
-
-endif
+exec 'set runtimepath=' . XDG_CONFIG_HOME_PATH( &runtimepath, g:xdg_config_home )
+exec 'set packpath=' . XDG_CONFIG_HOME_PATH( &packpath, g:xdg_config_home )
 
 filetype on                                                 " Auto-detect filetype
 filetype plugin indent on                                   " Auto-indent
@@ -73,27 +68,25 @@ inoremap <silent><C-l> <C-o>:call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@
 setlocal spelllang=de                                       " Language for spellcheck
 "set spell                                                  " Enable spellcheck
 
-if ! has('nvim')
-    " Workaround for Gnome-Terminal bug showing >4;m escape sequence
-    set keyprotocol = ""
-    "if &term
-    let &term = &term
-    "endif
+" Workaround for Gnome-Terminal bug showing >4;m escape sequence
+set keyprotocol = ""
+"if &term
+let &term = &term
+"endif
 
-    command -nargs=0 Csplit {
-        let s:filename = expand( '%:r' )
-        exec 'split' s:filename .. '.cpp'
-    }
+command -nargs=0 Csplit {
+    let s:filename = expand( '%:r' )
+    exec 'split' s:filename .. '.cpp'
+}
 
-    command -nargs=0 Hsplit {
-        let s:filename = expand( '%:r' )
-        exec 'split' s:filename .. '.h'
-    }
+command -nargs=0 Hsplit {
+    let s:filename = expand( '%:r' )
+    exec 'split' s:filename .. '.h'
+}
 
-    set cscopetag
-    set cscopetagorder=1
-    set cscopequickfix=s-,c-,d-,i-,t-,e-
-endif
+set cscopetag
+set cscopetagorder=1
+set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 inoremap <F3> <C-o>:let &expandtab = !&expandtab<CR>
 
