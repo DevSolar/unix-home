@@ -35,7 +35,8 @@ set expandtab                                               " No tabs
 autocmd FileType make set noexpandtab                       " ...except for Makefiles
 
 " If a system gives encoding problems, try uncommenting this.
-"set encoding=utf-8
+set encoding=utf-8
+set fileencodings=utf-8,latin1
 
 set shiftwidth=4                                            " Indent by 4 spaces
 autocmd FileType xml set shiftwidth=2                       " ...except for XML
