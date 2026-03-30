@@ -38,8 +38,6 @@ then
     alias egrep='egrep --color=auto'
 fi
 
-test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases"
-
 if [[ -x ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/p4c ]]
 then
     PATH="$PATH:${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/"
@@ -76,3 +74,10 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent
 fi
+
+if [[ -x ${XDG_CONFIG_HOME:-${HOME}/.config}/ssh/provider ]]
+then
+    DISPLAY=0.0 SSH_ASKPASS="${HOME}/.config/ssh/provider" ssh-add -q < /dev/null
+fi
+
+test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases"

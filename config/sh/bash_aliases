@@ -4,8 +4,6 @@ alias ll='ls -AhlF'
 alias la='ls -A'
 alias vsh='vim -c ":Vshell"'
 alias nvim='unset VIMINIT; nvim'
-alias sshadd='DISPLAY=0.0 SSH_ASKPASS="${HOME}/.config/ssh/provider" ssh-add < /dev/null'
-
 
 function vimp()
 {
