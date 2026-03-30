@@ -2,9 +2,10 @@
 
 alias ll='ls -AhlF'
 alias la='ls -A'
-alias rebuild='cmake -E rm -rf build && cmake -B build && cmake --build build && ctest --test-dir build'
-alias vshell='vim -c ":Vshell"'
+alias vsh='vim -c ":Vshell"'
 alias nvim='unset VIMINIT; nvim'
+alias sshadd='DISPLAY=0.0 SSH_ASKPASS="${HOME}/.config/ssh/provider" ssh-add < /dev/null'
+
 
 function vimp()
 {
@@ -13,6 +14,8 @@ function vimp()
         echo "Vim pairs / Vim packed"
         echo
         echo "Usage: vimp file1 file2 [file3 file4 ...]"
+        echo
+        echo "Opens files in a ( n / 2 ) x 2 tiled view."
         return 1
     fi
 
@@ -44,6 +47,9 @@ function vims()
         echo "Vim source"
         echo
         echo "Usage: vims file1 [file2 ...]"
+        echo
+        echo "Opens source files with their corresponding header files"
+        echo "in tiled view. Requires the vim-scripts/a.vim plugin."
         return 1
     fi
 
