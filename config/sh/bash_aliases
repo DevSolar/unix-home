@@ -63,5 +63,106 @@ function vims()
     eval "$cmd -c \"wincmd t\""
 }
 
+function find_exe()
+{
+    command -v ${1} >/dev/null
+    return $?
+}
+
+function get_winpath_tool()
+{
+    if find_exe wslpath
+    then
+        winpath=wslpath
+        return
+    fi
+
+    if find_exe cygpath
+    then
+        winpath=cygpath
+        return
+    fi
+
+    if [[ ! -x "${winpath}" ]]
+    then
+        echo "Error: Neither wslpath nor cygpath found."
+        exit 1
+    fi
+}
+
+msvc_init()
+{
+    get_winpath_tool
+
+    vswhere_path=$("${winpath}" -u "C:/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe")
+
+    if [[ ! -x $vswhere_path ]]
+    then
+        echo "Error: vswhere.exe not found."
+        exit 1
+    fi
+
+    vs_path=$("${winpath}" -u "$("${vswhere_path}" -latest -property installationPath | tr -d '\r')")
+
+    if [[ ! -d ${vs_path} ]]
+    then
+        echo "Error: Visual Studio could not be located."
+        exit 1
+    fi
+
+    vcvars_path="${vs_path}/VC/Auxiliary/Build/vcvars64.bat"
+
+    if [[ ! -f ${vcvars_path} ]]
+    then
+        echo "Error: vcvars64.bat could not be located."
+        exit 1
+    fi
+
+    vcvars_path="$("${winpath}" -m "${vcvars_path}")"
+
+    while IFS='=' read -r env_var env_val
+    do
+        if [[ -n $env_var ]] && [[ -n $env_val ]]
+        then
+            case "$env_var" in
+                P[aA][tT][hH])
+                    while IFS=';' read -r -a path_array
+                    do
+                        for win_path in "${path_array[@]}"
+                        do
+                            win_path=$(echo "$win_path" | tr -d '\r')
+
+                            [[ -n "$win_path" ]] || continue
+
+                            unix_path=$("${winpath}" "$win_path")
+
+                            # Verify the directory actually exists from the Bash perspective
+                            if [[ -d $unix_path ]]; then
+                                PATH="$PATH:$unix_path"
+                            fi
+                        done
+                    done <<< "$env_val"
+                    export PATH
+                    ;;
+                INCLUDE|LIB|LIBPATH|\
+                WindowsSdkDir|WindowsSDKVersion|WindowsSDKLibVersion|\
+                UniversalCRTSdkDir|UCRTVersion|\
+                NETFXSDKDir|VSINSTALLDIR|VCINSTALLDIR|VisualStudioVersion|\
+                VSCMD_*|Platform)
+                    env_val=$(echo "$env_val")
+                    export "${env_var}"="${env_val}"
+                    ;;
+                *)
+                    # ignore other environment variables
+                    ;;
+            esac
+        fi
+    done < <(cmd.exe <<EOF
+    "${vcvars_path}"
+    set
+EOF
+    )
+}
+
 # Aliases and functions -- local to this machine
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local"
