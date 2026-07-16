@@ -16,3 +16,5 @@
 	defaultBranch = main
 [include]
 	path = gitconfig.local
+[merge]
+	tool = vimdiff

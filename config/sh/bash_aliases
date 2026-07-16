@@ -4,6 +4,7 @@ alias ll='ls -AhlF'
 alias la='ls -A'
 alias vsh='vim -c ":Vshell"'
 alias nvim='unset VIMINIT; nvim'
+alias tree='tree -I packages'
 
 function vimp()
 {

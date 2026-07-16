@@ -60,4 +60,20 @@ do
     fi
 done <<< $("$P4EXE" clients -u $P4USER)
 
+dangerous="clean revert undo"
+
+if [[ $dangerous =~ (^|[[:space:]])$1([[:space:]]|$) ]]
+then
+    echo "p4 '${1}' is a potentially dangerous operation."
+    read -p "Are you sure (y/n)? " choice
+    case "${choice}" in
+        y|Y)
+            ;;
+        *)
+            echo "Aborted."
+            exit 0
+            ;;
+    esac
+fi
+
 "${P4EXE}" "$@"

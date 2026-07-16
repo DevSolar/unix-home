@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a pipeline returns a non-zero status (optional, but good practice)
+set -e
+
+# Check if 'wslpath' is available
+if command -v wslpath &> /dev/null; then
+    # Forward all arguments to wslpath
+    wslpath "$@"
+
+# If not, check if 'cygpath' is available
+elif command -v cygpath &> /dev/null; then
+    # Forward all arguments to cygpath
+    cygpath "$@"
+
+# If neither is found, print an error and exit
+else
+    echo "Error: Neither 'wslpath' nor 'cygpath' was found in the PATH." >&2
+    exit 1
+fi

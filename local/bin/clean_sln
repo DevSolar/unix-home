@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Define the directories to target
+TARGETS=("obj" ".vs")
+
+echo "Starting the deep clean..."
+
+for folder in "${TARGETS[@]}"; do
+    echo "Searching for and removing all '$folder' directories..."
+
+    # -type d: look for directories
+    # -name: match the folder name
+    # -prune: don't descend into a directory once matched (faster)
+    # -exec rm -rf: delete the directory and its contents
+    find . -type d -name "$folder" -prune -exec rm -rf {} +
+
+    if [ $? -eq 0 ]; then
+        echo "Successfully cleared all '$folder' instances."
+    else
+        echo "Error: Could not fully clear '$folder'. Ensure no files are locked."
+    fi
+done
+
+echo "------------------------------------------"
+echo "Nuke complete. You can now restart Visual Studio and Rebuild."

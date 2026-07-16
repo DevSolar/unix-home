@@ -48,6 +48,9 @@ set wrap                                                    " Wrap long lines
 set showmatch                                               " Highlight matching brace
 set incsearch                                               " Show incremental search results
 set hlsearch                                                " Highlight search matches
+set ignorecase                                              " Ignore case in search regex...
+set smartcase                                               " ...except when uppercase characters are used
+set clipboard="unnamed,autoselect"                          " Use unnamed (global) clipboard by default
 set scrolloff=3                                             " Keep lines above / below cursor
 set mouse=a                                                 " Mouse support all modes
 set pastetoggle=<F2>                                        " 'Paste' autoformat off
@@ -109,6 +112,27 @@ function! VerticalShells()
 endfunction
 
 command! Vshell call VerticalShells()
+
+function! FindSln()
+  let l:dir = expand('%:p:h')
+  while l:dir != fnamemodify(l:dir, ':h')
+    let l:hits = glob(l:dir . '/*.sln', 1, 1)
+    if !empty(l:hits)
+      return l:hits[0]
+    endif
+    let l:dir = fnamemodify(l:dir, ':h')
+  endwhile
+  return ''
+endfunction
+
+function! SetMSBuildPrg()
+  let l:sln = FindSln()
+  if !empty(l:sln)
+    let &makeprg = 'msbuild ' . shellescape(l:sln)
+  endif
+endfunction
+
+autocmd BufRead *.cpp,*.h,*.c,*.cs call SetMSBuildPrg()
 
 if filereadable( g:xdg_config_home .. '/vim/vimrc.local' )
     exec 'source' g:xdg_config_home .. '/vim/vimrc.local'
