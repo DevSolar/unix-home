@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+
+
+get_version()
+{
+    base_name=$(basename "$1")
+    file_version=$(powershell.exe -command "(Get-Item '$1').VersionInfo.FileVersion")
+    product_version=$(powershell.exe -command "(Get-Item '$1').VersionInfo.ProductVersion")
+
+    echo -e "$base_name\nFile version:    $file_version\nProduct version: $product_version"
+}
+
+for file in "$@"
+do
+    get_version "$file"
+done
