@@ -38,12 +38,6 @@ then
     alias egrep='egrep --color=auto'
 fi
 
-if [[ -x ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/p4c ]]
-then
-    PATH="$PATH:${XDG_CONFIG_HOME:-${HOME}/.config}/vim/plugged/perforce_autoopen.vim/script/"
-    export PATH
-fi
-
 if ! shopt -oq posix
 then
     if [[ -e /usr/share/bash-completion/bash_completion ]]
@@ -55,29 +49,28 @@ then
     fi
 fi
 
-# Path to a file that stores the agent environment variables
-SSH_ENV="${XDG_STATE_HOME:-${HOME}/.local/state}/ssh-agent.env"
+SSH_ENV="${XDG_STATE_HOME:-$HOME/.local/state}/ssh-agent.env"
 
-function start_agent {
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
+start_agent() {
+    mkdir -p "$(dirname "$SSH_ENV")"
+    ssh-agent -s > "$SSH_ENV"
+    chmod 600 "$SSH_ENV"
+    . "$SSH_ENV" >/dev/null
 }
 
-# Check if the env file exists and source it
-if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
+agent_is_usable() {
+    [ -n "$SSH_AGENT_PID" ] &&
+    kill -0 "$SSH_AGENT_PID" 2>/dev/null &&
+    [ -n "$SSH_AUTH_SOCK" ] &&
+    [ -S "$SSH_AUTH_SOCK" ]
+}
 
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent
-    }
-else
-    start_agent
+if [ -f "$SSH_ENV" ]; then
+    . "$SSH_ENV" >/dev/null
 fi
 
-if [[ -x ${XDG_CONFIG_HOME:-${HOME}/.config}/ssh/provider ]]
-then
-    DISPLAY=0.0 SSH_ASKPASS="${HOME}/.config/ssh/provider" ssh-add -q < /dev/null
+if ! agent_is_usable; then
+    start_agent
 fi
 
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases"
