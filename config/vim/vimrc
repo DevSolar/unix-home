@@ -134,6 +134,45 @@ endfunction
 
 autocmd BufRead *.cpp,*.h,*.c,*.cs call SetMSBuildPrg()
 
+function! GenerateCppHeader()
+    let l:relative_path = expand('%:p:.')
+
+    if l:relative_path !~ 'include/'
+        let l:clean_path = expand('%:t')
+    else
+        let l:clean_path = substitute(l:relative_path, '^.*include\/', '', '')
+    endif
+
+    let l:guard = substitute(l:clean_path, '[\/\.]', '_', 'g')
+    let l:guard = toupper(l:guard)
+
+    " If there are no folders after include/, we'll default to a generic 'project'
+    let l:project_name = matchstr(l:clean_path, '\zs[^\/]\+\ze')
+
+    if empty(l:project_name)
+        let l:project_name = "project"
+    endif
+
+    " 2 & 4. Prepare the lines to inject into the file
+    let l:lines = [
+\       '#ifndef ' . l:guard,
+\       '#define ' . l:guard,
+\       '',
+\       'namespace ' . l:project_name,
+\       '{',
+\       '    // t.b.d.',
+\       '}',
+\       '',
+\       '#endif'
+\   ]
+
+    " Set the lines into the current buffer (replacing or adding at the top)
+    call setline(1, l:lines)
+endfunction
+
+" Optional: Map it to a shortcut like <leader>gh (Generate Header)
+nnoremap <leader>gh :call GenerateCppHeader()<CR>
+
 if filereadable( g:xdg_config_home .. '/vim/vimrc.local' )
     exec 'source' g:xdg_config_home .. '/vim/vimrc.local'
 endif
