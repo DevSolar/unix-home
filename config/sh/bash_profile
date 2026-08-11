@@ -73,4 +73,12 @@ if ! agent_is_usable; then
     start_agent
 fi
 
+if [[ $- == *i* ]]; then
+    ssh-add -l >/dev/null 2>&1
+
+    if [ $? -eq 1 ]; then
+        ssh-add
+    fi
+fi
+
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases"
