@@ -77,7 +77,7 @@ if [[ $- == *i* ]]; then
     ssh-add -l >/dev/null 2>&1
 
     if [ $? -eq 1 ]; then
-        ssh-add
+        DISPLAY=1 SSH_ASKPASS=~/.config/ssh/provider ssh-add < /dev/null
     fi
 fi
 
