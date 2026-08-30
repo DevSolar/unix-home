@@ -18,8 +18,7 @@ call plug#begin( g:xdg_data_home .. "/vim/plugged" )
 "    Plug 'prabirshrestha/vim-lsp'
 "    Plug 'maralla/completor.vim'
     Plug 'preservim/vim-markdown'                    " Markdown
-    Plug 'vim-scripts/AnsiEsc.vim'                   " ANSI escape sequences
-
+    Plug 'powerman/vim-plugin-AnsiEsc'
     Plug 'prabirshrestha/vim-lsp'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
