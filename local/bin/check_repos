@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+#
+# check_repos.sh - Fetch git repositories in ./ and ./references and report status.
+#
+
+set -euo pipefail
+
+# Parse optional arguments
+FETCH_REPOS=false
+for arg in "$@"; do
+    case "$arg" in
+        --fetch)
+            FETCH_REPOS=true
+            ;;
+        -h|--help)
+            echo "Usage: $0 [--no-fetch]"
+            echo "  --fetch    Run 'git fetch' before checking status."
+            exit 0
+            ;;
+        *)
+            echo "Unknown argument: $arg" >&2
+            echo "Usage: $0 [--fetch]" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Collect repository paths from ./ and ./references
+repos=()
+for search_dir in "." "./references"; do
+    if [ -d "$search_dir" ]; then
+        for d in "$search_dir"/*; do
+            if [ -d "$d/.git" ]; then
+                repos+=("$d")
+            fi
+        done
+    fi
+done
+
+if [ ${#repos[@]} -eq 0 ]; then
+    echo "No git repositories found in ./ or ./references."
+    exit 0
+fi
+
+# Fetch updates in parallel if enabled
+if [ "$FETCH_REPOS" = true ]; then
+    echo "Fetching updates for ${#repos[@]} repositories in parallel..." >&2
+    pids=()
+    for repo in "${repos[@]}"; do
+        git -C "$repo" fetch --all --prune --quiet 2>/dev/null &
+        pids+=($!)
+    done
+
+    for pid in "${pids[@]}"; do
+        wait "$pid" 2>/dev/null || true
+    done
+    echo "Fetch complete." >&2
+    echo "" >&2
+fi
+
+# Generate status table
+generate_table() {
+    echo "REPOSITORY|BEHIND|AHEAD|UNCOMMITTED"
+    echo "------------------------------|------|-----|-----------"
+
+    for repo in "${repos[@]}"; do
+        # Check upstream branch
+        upstream=$(git -C "$repo" rev-parse --abbrev-ref @{u} 2>/dev/null || true)
+        
+        if [ -n "$upstream" ]; then
+            behind=$(git -C "$repo" rev-list --count HEAD..@{u} 2>/dev/null || echo "N/A")
+            ahead=$(git -C "$repo" rev-list --count @{u}..HEAD 2>/dev/null || echo "N/A")
+        else
+            behind="N/A"
+            ahead="N/A"
+        fi
+
+        # Count modified & uncommitted files (staged, unstaged, untracked)
+        uncommitted=$(git -C "$repo" status --porcelain 2>/dev/null | wc -l | tr -d ' ')
+
+        echo "$repo|$behind|$ahead|$uncommitted"
+    done
+}
+
+# Format output as a table
+if command -v column >/dev/null 2>&1; then
+    generate_table | column -t -s '|'
+else
+    generate_table | tr '|' '\t'
+fi
