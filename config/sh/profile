@@ -3,7 +3,6 @@
 EDITOR=vim
 LESS="--quit-if-one-screen --quit-at-eof --no-init --RAW-CONTROL-CHARS --chop-long-lines"
 LESSHISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/less_history"
-GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME:-${HOME}/.config}/git/gitconfig"
 VIMINIT=":source ${XDG_CONFIG_HOME:-${HOME}/.config}/vim/vimrc"
 EVERYTHING="-Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wfloat-equal -Wdouble-promotion -Wshift-overflow=2 -Wstrict-overflow=5 -Wpointer-arith -Wcast-qual -Wcast-align=strict -Wwrite-strings -Wnull-dereference -Wstringop-overflow=4 -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wbad-function-cast -Wnested-externs -Wjump-misses-init -Wshadow -Wundef -Wunused-macros -Wredundant-decls -Wswitch-default -Wswitch-enum -Wlogical-op -Wduplicated-cond -Wduplicated-branches -Wvla -Wformat=2 -Wformat-security -Wformat-nonliteral -Wformat-y2k -Wpadded -Waggregate-return -Winline -wdeclaration-after-statement"
 

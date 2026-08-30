@@ -1,0 +1,11 @@
+[core]
+	autocrlf = input
+	filemode = false
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[submodule]
+	recurse = true
+[include]
+	path = config.local

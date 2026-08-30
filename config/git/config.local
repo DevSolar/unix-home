@@ -1,0 +1,7 @@
+[user]
+	name = Martin Baute
+	email = solar@rootdirectory.de
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff2
