@@ -64,6 +64,23 @@ function vims()
     eval "$cmd -c \"wincmd t\""
 }
 
+function vrev()
+{
+    if [ "$#" -lt 1 -o "${1}" == "--help" -o "${1}" == "-h" ]
+    then
+        echo "Vim Review"
+        echo
+        echo "Usage: vrev file"
+        echo
+        echo "Opens the given file in Vimdiff, the HEAD version on the"
+        echo "left and the current one on the right."
+        return 1
+    fi
+
+    vimdiff <(git show HEAD:${1}) "${1}"
+}
+
+
 function find_exe()
 {
     command -v ${1} >/dev/null
