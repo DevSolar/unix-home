@@ -6,15 +6,37 @@ my devices.
 
 Installation:
 
-  - Clone repository to location of your choice (${CLONE})
+  Automated setup (recommended):
 
-  - Copy ${CLONE}/system/etc/profile.d/profile.sh to /etc/profile.d
+    - Clone repository to location of your choice (${CLONE})
 
-  - Symlink ${CLONE}/config to ~/.config
+    - Run the setup script:
+        cd ${CLONE}
+        ./setup.sh
 
-  - Symlink ${CLONE}/local to ~/.local
+      This script will:
+        - Safely merge any pre-existing ~/.config and ~/.local into the repo directories.
+        - Back up any conflicting user configuration files to ~/.unix-home-backup-TIMESTAMP.
+        - Create symlinks ~/.config -> ${CLONE}/config and ~/.local -> ${CLONE}/local.
+        - Copy/install ${CLONE}/system/etc/profile.d/clean_home.sh to /etc/profile.d/.
 
-  - Start a new bash, enjoy!
+  Manual setup (alternative):
+
+    - Clone repository to location of your choice (${CLONE})
+
+    - Copy ${CLONE}/system/etc/profile.d/clean_home.sh to /etc/profile.d/
+
+    - Symlink ${CLONE}/config to ~/.config
+
+    - Symlink ${CLONE}/local to ~/.local
+
+  Start a new bash, enjoy!
+
+Git & Tracking New Dotfiles:
+
+  - `.gitignore` ignores all untracked files inside `config/` and `local/` by default.
+  - To track a new file or directory in git, use `git add -f path/to/file`.
+
 
 Recommendations not part of this repo:
 

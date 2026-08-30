@@ -1,33 +1,9 @@
-/config/coc
-/config/configstore
-/config/dconf
-/config/gh
-/config/gim
-/config/git/gitconfig.local
-/config/npm
-/config/pulse
-/config/sh/profile_local
-/config/sh/bash_aliases_local
-/config/ssh
-/config/vim/vimrc.local
-/config/vim/vimrc.plugins.local
-/config/vim/plugged
-/local/bin/agy
-/local/bin/agy.*
-/local/bin/clang-format
-/local/bin/d8v
-/local/bin/gim
-/local/bin/litellm
-/local/bin/litellm-proxy
-/local/bin/ovmfvartool
-/local/bin/update-gemini
-/local/bin/tree.exe
-/local/include
-/local/share/fs-uae
-/local/share/NuGet
-/local/share/nvim/plugged
-/local/share/nvim/site/autoload/plug.vim.old
-/local/share/nvim/site/plugged
-/local/share/pipx
-/local/share/vim/plugged
-/local/state
+# Ignore all untracked files and directories in config/ and local/
+# Tracked files (and future files added with `git add -f`) remain tracked by Git.
+/config/*
+/local/*
+
+# OS/Editor temporary files
+*.swp
+*.tmp
+.DS_Store
