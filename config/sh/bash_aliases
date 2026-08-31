@@ -198,5 +198,8 @@ EOF
     )
 }
 
+# dircolors
+test -r ${XDG_CONFIG_HOME:-${HOME}/.config}/sh/dircolors && eval "$(dircolors -b ${XDG_CONFIG_HOME:-${HOME}/.config}/sh/dircolors)"
+
 # Aliases and functions -- local to this machine
 test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local"
