@@ -1,11 +1,17 @@
 [core]
 	autocrlf = input
+	eol = lf
 	filemode = false
 [init]
 	defaultBranch = main
+[safe]
+	directory = ~
 [pull]
 	rebase = true
 [submodule]
 	recurse = true
+[advice]
+	addIgnoredFile = false
+	waitingForEditor = false
 [include]
 	path = config.local
