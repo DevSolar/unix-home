@@ -3,7 +3,7 @@
 # Vi key bindings on command line
 set -o vi
 
-HISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/bash_history"; export HISTFILE
+HISTFILE="${XDG_STATE_HOME}/bash_history"; export HISTFILE
 HISTCONTROL=ignoreboth; export HISTCONTROL
 
 shopt -s histappend
@@ -33,7 +33,7 @@ then
     fi
 fi
 
-SSH_ENV="${XDG_STATE_HOME:-$HOME/.local/state}/ssh-agent.env"
+SSH_ENV="${XDG_STATE_HOME}/ssh-agent.env"
 
 start_agent() {
     mkdir -p "$(dirname "$SSH_ENV")"
@@ -70,4 +70,5 @@ if [[ $- == *i* ]]; then
     fi
 fi
 
-test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases"
+test -r "${XDG_CONFIG_HOME}/sh/bash_profile_local" && . "${XDG_CONFIG_HOME}/sh/bash_profile_local"
+test -r "${XDG_CONFIG_HOME}/sh/bashrc" && . "${XDG_CONFIG_HOME}/sh/bashrc"

@@ -207,7 +207,8 @@ setup_system_profile() {
 
 setup_system_bashrc() {
     local bashrc_target="/etc/bash.bashrc"
-    local source_line='test -r "${XDG_CONFIG_HOME:-$HOME/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-$HOME/.config}/sh/bash_aliases"'
+    local start_marker="# >>> unix-home clean_home >>>"
+    local end_marker="# <<< unix-home clean_home <<<"
 
     log "Checking system bashrc initialization in $bashrc_target..."
 
@@ -216,42 +217,56 @@ setup_system_bashrc() {
         return 0
     fi
 
-    if grep -Fq "$source_line" "$bashrc_target" 2>/dev/null; then
-        log "$bashrc_target is already configured."
-        return 0
+    local desired_block
+    desired_block=$(cat <<'EOF'
+# >>> unix-home clean_home >>>
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
+test -d "${HOME}/.local/bin" && PATH="${HOME}/.local/bin:${PATH}"; export PATH
+
+test -r "${XDG_CONFIG_HOME}/sh/bashrc" && . "${XDG_CONFIG_HOME}/sh/bashrc"
+# <<< unix-home clean_home <<<
+EOF
+)
+
+    # Legacy line check
+    local legacy_line_aliases='test -r "${XDG_CONFIG_HOME:-$HOME/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-$HOME/.config}/sh/bash_aliases"'
+    local legacy_line_bashrc='test -r "${XDG_CONFIG_HOME:-$HOME/.config}/sh/bashrc" && . "${XDG_CONFIG_HOME:-$HOME/.config}/sh/bashrc"'
+
+    # If the target already contains the exact desired block and no legacy lines, nothing to do
+    if grep -Fq "$start_marker" "$bashrc_target" 2>/dev/null; then
+        local current_block
+        current_block=$(sed -n "/$start_marker/,/$end_marker/p" "$bashrc_target")
+        if [[ "$current_block" == "$desired_block" ]] && \
+           ! grep -Fq "$legacy_line_aliases" "$bashrc_target" 2>/dev/null && \
+           ! grep -Fq "$legacy_line_bashrc" "$bashrc_target" 2>/dev/null; then
+            log "$bashrc_target is already configured."
+            return 0
+        fi
     fi
 
-    log "Adding bash_aliases sourcing to $bashrc_target..."
+    log "Updating $bashrc_target with XDG exports and bashrc sourcing..."
     if [[ "$DRY_RUN" == true ]]; then
-        echo "[dry-run] Add '$source_line' to $bashrc_target"
+        echo "[dry-run] Update $bashrc_target with unix-home configuration block"
         return 0
     fi
 
     local tmp_file
     tmp_file="$(mktemp)"
-    python3 -c '
-import sys
 
-target, line_to_add, out_file = sys.argv[1], sys.argv[2], sys.argv[3]
-with open(target, "r") as f:
-    lines = f.readlines()
+    # Filter out any existing unix-home block or legacy single lines using sed
+    sed -e "/$start_marker/,/$end_marker/d" \
+        -e "\#$legacy_line_aliases#d" \
+        -e "\#$legacy_line_bashrc#d" \
+        "$bashrc_target" > "$tmp_file"
 
-trailing_empty = []
-while lines and lines[-1].strip() == "":
-    trailing_empty.append(lines.pop())
-
-if lines and lines[-1].strip().startswith("#"):
-    last_comment = lines.pop()
-    lines.append(line_to_add + "\n")
-    lines.append(last_comment)
-else:
-    lines.append(line_to_add + "\n")
-
-lines.extend(trailing_empty)
-
-with open(out_file, "w") as f:
-    f.writelines(lines)
-' "$bashrc_target" "$source_line" "$tmp_file"
+    # Append desired block ensuring clean spacing
+    if [[ -s "$tmp_file" ]] && [[ "$(tail -c 1 "$tmp_file" | wc -l)" -eq 0 ]]; then
+        echo "" >> "$tmp_file"
+    fi
+    printf "%s\n" "$desired_block" >> "$tmp_file"
 
     if [[ -w "$bashrc_target" ]]; then
         cp "$tmp_file" "$bashrc_target"
@@ -265,12 +280,14 @@ with open(out_file, "w") as f:
         else
             rm -f "$tmp_file"
             log "Warning: Failed to update $bashrc_target using sudo."
-            log "Please run manually: sudo tee -a '$bashrc_target' <<< '$source_line'"
+            log "Please append the following block manually to $bashrc_target:"
+            echo "$desired_block"
         fi
     else
         rm -f "$tmp_file"
         log "Notice: Updating $bashrc_target requires root/sudo access."
-        log "Please run manually: sudo tee -a '$bashrc_target' <<< '$source_line'"
+        log "Please append the following block manually to $bashrc_target:"
+        echo "$desired_block"
     fi
 }
 

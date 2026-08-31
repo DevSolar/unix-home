@@ -2,9 +2,9 @@
 
 if [[ -x /usr/bin/dircolors ]]
 then
-    if [[ -r ${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors/dircolors ]]
+    if [[ -r ${XDG_CONFIG_HOME}/dircolors/dircolors ]]
     then
-        eval "$(dircolors -b ${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors/dircolors)"
+        eval "$(dircolors -b ${XDG_CONFIG_HOME}/dircolors/dircolors)"
     else
         eval "$(dircolors -b)"
     fi
@@ -199,7 +199,7 @@ EOF
 }
 
 # dircolors
-test -r ${XDG_CONFIG_HOME:-${HOME}/.config}/sh/dircolors && eval "$(dircolors -b ${XDG_CONFIG_HOME:-${HOME}/.config}/sh/dircolors)"
+test -r ${XDG_CONFIG_HOME}/sh/dircolors && eval "$(dircolors -b ${XDG_CONFIG_HOME}/sh/dircolors)"
 
 # Aliases and functions -- local to this machine
-test -r "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local" && . "${XDG_CONFIG_HOME:-${HOME}/.config}/sh/bash_aliases_local"
+test -r "${XDG_CONFIG_HOME}/sh/bashrc_local" && . "${XDG_CONFIG_HOME}/sh/bashrc_local"
