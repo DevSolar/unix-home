@@ -209,6 +209,19 @@ endif
 
 if has_key( plugs, 'vim-markdown' )
     let g:vim_markdown_folding_disabled = 1
+
+    " Enable vim-markdown concealing (bold, italics, inline code, links)
+    let g:vim_markdown_conceal = 2
+    let g:vim_markdown_conceal_code_blocks = 1
+
+    " Hide characters unless cursor is on the line (set to 'nc' to keep concealed in normal/command mode)
+    set conceallevel=2
+    set concealcursor=nc
+
+    " Press <Leader>mc to toggle Markdown markup visibility
+    nnoremap <silent> <leader>mc :let &l:conceallevel = (&l:conceallevel == 2 ? 0 : 2)<CR>
+
+    command! Glow execute 'terminal glow -w ' . (&columns - 4) . ' ' . fnameescape(expand('%')) | setlocal nolist
 endif
 
 if filereadable( g:xdg_config_home .. '/vim/vimrc.plugins.local' )
