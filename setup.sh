@@ -205,6 +205,75 @@ setup_system_profile() {
     fi
 }
 
+setup_system_bashrc() {
+    local bashrc_target="/etc/bash.bashrc"
+    local source_line='test -r "${XDG_CONFIG_HOME:-$HOME/.config}/sh/bash_aliases" && . "${XDG_CONFIG_HOME:-$HOME/.config}/sh/bash_aliases"'
+
+    log "Checking system bashrc initialization in $bashrc_target..."
+
+    if [[ ! -f "$bashrc_target" ]]; then
+        log "Notice: $bashrc_target does not exist. Skipping."
+        return 0
+    fi
+
+    if grep -Fq "$source_line" "$bashrc_target" 2>/dev/null; then
+        log "$bashrc_target is already configured."
+        return 0
+    fi
+
+    log "Adding bash_aliases sourcing to $bashrc_target..."
+    if [[ "$DRY_RUN" == true ]]; then
+        echo "[dry-run] Add '$source_line' to $bashrc_target"
+        return 0
+    fi
+
+    local tmp_file
+    tmp_file="$(mktemp)"
+    python3 -c '
+import sys
+
+target, line_to_add, out_file = sys.argv[1], sys.argv[2], sys.argv[3]
+with open(target, "r") as f:
+    lines = f.readlines()
+
+trailing_empty = []
+while lines and lines[-1].strip() == "":
+    trailing_empty.append(lines.pop())
+
+if lines and lines[-1].strip().startswith("#"):
+    last_comment = lines.pop()
+    lines.append(line_to_add + "\n")
+    lines.append(last_comment)
+else:
+    lines.append(line_to_add + "\n")
+
+lines.extend(trailing_empty)
+
+with open(out_file, "w") as f:
+    f.writelines(lines)
+' "$bashrc_target" "$source_line" "$tmp_file"
+
+    if [[ -w "$bashrc_target" ]]; then
+        cp "$tmp_file" "$bashrc_target"
+        rm -f "$tmp_file"
+        log "Successfully updated $bashrc_target"
+    elif [[ -t 0 ]] && command -v sudo >/dev/null 2>&1; then
+        log "Requesting sudo privileges to update $bashrc_target..."
+        if sudo cp "$tmp_file" "$bashrc_target"; then
+            rm -f "$tmp_file"
+            log "Successfully updated $bashrc_target"
+        else
+            rm -f "$tmp_file"
+            log "Warning: Failed to update $bashrc_target using sudo."
+            log "Please run manually: sudo tee -a '$bashrc_target' <<< '$source_line'"
+        fi
+    else
+        rm -f "$tmp_file"
+        log "Notice: Updating $bashrc_target requires root/sudo access."
+        log "Please run manually: sudo tee -a '$bashrc_target' <<< '$source_line'"
+    fi
+}
+
 main() {
     log "Starting unix-home setup..."
     log "Repository root: $SCRIPT_DIR"
@@ -213,6 +282,7 @@ main() {
     setup_target "$HOME/.local" "$REPO_LOCAL"
 
     setup_system_profile
+    setup_system_bashrc
 
     if [[ -d "$BACKUP_DIR" ]]; then
         log "Backed up pre-existing conflicting files to: $BACKUP_DIR"

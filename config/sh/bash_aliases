@@ -1,5 +1,21 @@
 # Aliases and functions
 
+if [[ -x /usr/bin/dircolors ]]
+then
+    if [[ -r ${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors/dircolors ]]
+    then
+        eval "$(dircolors -b ${XDG_CONFIG_HOME:-${HOME}/.config}/dircolors/dircolors)"
+    else
+        eval "$(dircolors -b)"
+    fi
+
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
 alias ll='ls -AhlF'
 alias la='ls -A'
 alias vsh='vim -c ":Vshell"'
