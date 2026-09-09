@@ -1,3 +1,11 @@
+python
+import os, sys
+gdb_dir = os.path.expanduser('~/.config/gdb')
+if gdb_dir not in sys.path:
+    sys.path.insert(0, gdb_dir)
+import cc_gdb
+end
+
 fs cmd
 tui enable
 set history save on
