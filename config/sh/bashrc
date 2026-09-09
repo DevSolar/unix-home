@@ -21,6 +21,8 @@ alias la='ls -A'
 alias vsh='vim -c ":Vshell"'
 alias nvim='unset VIMINIT; nvim'
 alias tree='tree -I packages'
+alias resize='echo -ne "\e[8;25;80t"'
+alias shove='gim amend && gim push -f'
 
 function vimp()
 {
