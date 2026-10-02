@@ -55,6 +55,7 @@ set scrolloff=3                                             " Keep lines above /
 set mouse=a                                                 " Mouse support all modes
 set pastetoggle=<F2>                                        " 'Paste' autoformat off
 set vb t_vb=                                                " Disable terminal beeps
+set termguicolors                                           " Sets colors used from web palette to terminal
 set wildmenu                                                " Change behavior of command autocompletion
 set wildoptions=pum                                         " Popup for commandline completion
 "set autochdir                                               " Automatically cd to open file's directory

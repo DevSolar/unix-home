@@ -17,7 +17,7 @@ let g:colors_name = 'murphy-mod'
 let s:t_Co = has('gui_running') ? -1 : (&t_Co ?? 0)
 
 if (has('termguicolors') && &termguicolors) || has('gui_running')
-  let g:terminal_ansi_colors = ['#303030', '#ffa700', '#005f00', '#ffd7af', '#87afff', '#ffafaf', '#00afaf', '#bcbcbc', '#444444', '#ff0000', '#00875f', '#ffff00', '#005fff', '#ff00ff', '#00ffff', '#ffffff']
+  let g:terminal_ansi_colors = ['#202020', '#885900', '#154515', '#88735d', '#305080', '#885d5d', '#157070', '#666666', '#444444', '#882020', '#2a883a', '#888800', '#204088', '#883088', '#208888', '#888888']
 endif
 hi! link Terminal Normal
 hi! link LineNrAbove LineNr
@@ -29,66 +29,66 @@ hi! link StatusLineTerm StatusLine
 hi! link StatusLineTermNC StatusLineNC
 hi! link MessageWindow Pmenu
 hi! link PopupNotification Todo
-hi Normal guifg=#bcbcbc guibg=#000000 gui=NONE cterm=NONE
-hi EndOfBuffer guifg=#0000ff guibg=#000000 gui=NONE cterm=NONE
-hi StatusLine guifg=#ffffff guibg=#444444 gui=NONE cterm=NONE
-hi StatusLineNC guifg=#ffffff guibg=#262626 gui=NONE cterm=NONE
-hi VertSplit guifg=#ffffff guibg=#3a3a3a gui=NONE cterm=NONE
-hi Pmenu guifg=#ffffff guibg=#444444 gui=NONE cterm=NONE
-hi PmenuSel guifg=#000000 guibg=#ffff00 gui=NONE cterm=NONE
-hi PmenuSbar guifg=NONE guibg=#303030 gui=NONE cterm=NONE
-hi PmenuThumb guifg=NONE guibg=#bcbcbc gui=NONE cterm=NONE
-hi TabLineFill guifg=NONE guibg=#303030 gui=NONE cterm=NONE
-hi TabLine guifg=#87ff87 guibg=#444444 gui=NONE cterm=NONE
-hi TabLineSel guifg=#ffffff guibg=#000000 gui=NONE cterm=NONE
-hi ToolbarLine guifg=NONE guibg=#303030 gui=NONE cterm=NONE
-hi ToolbarButton guifg=#ffffff guibg=#444444 gui=bold cterm=bold
-hi NonText guifg=#00afaf guibg=NONE gui=NONE cterm=NONE
-hi SpecialKey guifg=#00afaf guibg=NONE gui=NONE cterm=NONE
-hi QuickFixLine guifg=#303030 guibg=#00afaf gui=NONE cterm=NONE
-hi Folded guifg=#00afaf guibg=#303030 gui=NONE cterm=NONE
-hi CursorLine guifg=NONE guibg=#444444 gui=NONE cterm=NONE
-hi CursorColumn guifg=NONE guibg=#444444 gui=NONE cterm=NONE
-hi CursorLineNr guifg=#ffff00 guibg=NONE gui=bold cterm=bold
-hi ColorColumn guifg=NONE guibg=#262626 gui=NONE cterm=NONE
-hi Visual guifg=#ffffff guibg=#005f00 gui=NONE cterm=NONE
-hi VisualNOS guifg=#ffffff guibg=#005f00 gui=NONE cterm=NONE
-hi LineNr guifg=#ffff00 guibg=NONE gui=NONE cterm=NONE
-hi FoldColumn guifg=#00afaf guibg=NONE gui=NONE cterm=NONE
-hi SignColumn guifg=#00afaf guibg=NONE gui=NONE cterm=NONE
-hi Underlined guifg=#00afaf guibg=NONE gui=underline cterm=underline
-hi Error guifg=#ffffff guibg=#ff0000 gui=NONE cterm=NONE
-hi ErrorMsg guifg=#ffffff guibg=#ff0000 gui=NONE cterm=NONE
-hi ModeMsg guifg=#87ff87 guibg=NONE gui=bold cterm=bold
-hi WarningMsg guifg=#ffa700 guibg=NONE gui=bold cterm=bold
-hi MoreMsg guifg=#005f00 guibg=NONE gui=bold cterm=bold
-hi Question guifg=#00ffff guibg=NONE gui=bold cterm=bold
-hi Todo guifg=#0000ff guibg=#ffff00 gui=NONE cterm=NONE
-hi MatchParen guifg=#303030 guibg=#ffd7af gui=NONE cterm=NONE
-hi Search guifg=#ffffff guibg=#0000ff gui=NONE cterm=NONE
-hi IncSearch guifg=#ffa700 guibg=NONE gui=reverse cterm=reverse
-hi WildMenu guifg=#000000 guibg=#ffff00 gui=NONE cterm=NONE
-hi Cursor guifg=#000000 guibg=#87ff87 gui=NONE cterm=NONE
-hi lCursor guifg=#000000 guibg=#ff0000 gui=NONE cterm=NONE
-hi SpellBad guifg=#ff0000 guibg=NONE guisp=#ff0000 gui=undercurl cterm=underline
-hi SpellCap guifg=#00ffff guibg=NONE guisp=#00ffff gui=undercurl cterm=underline
-hi SpellLocal guifg=#ffd7af guibg=NONE guisp=#ffd7af gui=undercurl cterm=underline
-hi SpellRare guifg=#ffff00 guibg=NONE guisp=#ffff00 gui=undercurl cterm=underline
-hi Comment guifg=#ffa700 guibg=NONE gui=NONE cterm=NONE
-hi Identifier guifg=#00ffff guibg=NONE gui=NONE cterm=NONE
-hi Statement guifg=#ffff00 guibg=NONE gui=NONE cterm=NONE
-hi Constant guifg=#ffffff guibg=NONE gui=NONE cterm=NONE
-hi PreProc guifg=#ffd7af guibg=NONE gui=NONE cterm=NONE
-hi Type guifg=#bcbcbc guibg=NONE gui=NONE cterm=NONE
-hi Special guifg=#ff00ff guibg=NONE gui=NONE cterm=NONE
-hi Directory guifg=#00ffff guibg=NONE gui=NONE cterm=NONE
-hi Conceal guifg=#bcbcbc guibg=NONE gui=NONE cterm=NONE
+hi Normal guifg=#888888 guibg=#000000 gui=NONE cterm=NONE
+hi EndOfBuffer guifg=#204088 guibg=#000000 gui=NONE cterm=NONE
+hi StatusLine guifg=#888888 guibg=#303030 gui=NONE cterm=NONE
+hi StatusLineNC guifg=#888888 guibg=#202020 gui=NONE cterm=NONE
+hi VertSplit guifg=#888888 guibg=#262626 gui=NONE cterm=NONE
+hi Pmenu guifg=#888888 guibg=#303030 gui=NONE cterm=NONE
+hi PmenuSel guifg=#000000 guibg=#888800 gui=NONE cterm=NONE
+hi PmenuSbar guifg=NONE guibg=#202020 gui=NONE cterm=NONE
+hi PmenuThumb guifg=NONE guibg=#666666 gui=NONE cterm=NONE
+hi TabLineFill guifg=NONE guibg=#202020 gui=NONE cterm=NONE
+hi TabLine guifg=#488848 guibg=#303030 gui=NONE cterm=NONE
+hi TabLineSel guifg=#888888 guibg=#000000 gui=NONE cterm=NONE
+hi ToolbarLine guifg=NONE guibg=#202020 gui=NONE cterm=NONE
+hi ToolbarButton guifg=#888888 guibg=#303030 gui=bold cterm=bold
+hi NonText guifg=#157070 guibg=NONE gui=NONE cterm=NONE
+hi SpecialKey guifg=#157070 guibg=NONE gui=NONE cterm=NONE
+hi QuickFixLine guifg=#202020 guibg=#157070 gui=NONE cterm=NONE
+hi Folded guifg=#157070 guibg=#202020 gui=NONE cterm=NONE
+hi CursorLine guifg=NONE guibg=#262626 gui=NONE cterm=NONE
+hi CursorColumn guifg=NONE guibg=#262626 gui=NONE cterm=NONE
+hi CursorLineNr guifg=#888800 guibg=NONE gui=bold cterm=bold
+hi ColorColumn guifg=NONE guibg=#202020 gui=NONE cterm=NONE
+hi Visual guifg=#888888 guibg=#154515 gui=NONE cterm=NONE
+hi VisualNOS guifg=#888888 guibg=#154515 gui=NONE cterm=NONE
+hi LineNr guifg=#888800 guibg=NONE gui=NONE cterm=NONE
+hi FoldColumn guifg=#157070 guibg=NONE gui=NONE cterm=NONE
+hi SignColumn guifg=#157070 guibg=NONE gui=NONE cterm=NONE
+hi Underlined guifg=#157070 guibg=NONE gui=underline cterm=underline
+hi Error guifg=#888888 guibg=#882020 gui=NONE cterm=NONE
+hi ErrorMsg guifg=#888888 guibg=#882020 gui=NONE cterm=NONE
+hi ModeMsg guifg=#488848 guibg=NONE gui=bold cterm=bold
+hi WarningMsg guifg=#885900 guibg=NONE gui=bold cterm=bold
+hi MoreMsg guifg=#154515 guibg=NONE gui=bold cterm=bold
+hi Question guifg=#208888 guibg=NONE gui=bold cterm=bold
+hi Todo guifg=#000000 guibg=#888800 gui=NONE cterm=NONE
+hi MatchParen guifg=#202020 guibg=#88735d gui=NONE cterm=NONE
+hi Search guifg=#888888 guibg=#204088 gui=NONE cterm=NONE
+hi IncSearch guifg=#885900 guibg=NONE gui=reverse cterm=reverse
+hi WildMenu guifg=#000000 guibg=#888800 gui=NONE cterm=NONE
+hi Cursor guifg=#000000 guibg=#488848 gui=NONE cterm=NONE
+hi lCursor guifg=#000000 guibg=#882020 gui=NONE cterm=NONE
+hi SpellBad guifg=#882020 guibg=NONE guisp=#882020 gui=undercurl cterm=underline
+hi SpellCap guifg=#208888 guibg=NONE guisp=#208888 gui=undercurl cterm=underline
+hi SpellLocal guifg=#88735d guibg=NONE guisp=#88735d gui=undercurl cterm=underline
+hi SpellRare guifg=#888800 guibg=NONE guisp=#888800 gui=undercurl cterm=underline
+hi Comment guifg=#885900 guibg=NONE gui=NONE cterm=NONE
+hi Identifier guifg=#208888 guibg=NONE gui=NONE cterm=NONE
+hi Statement guifg=#888800 guibg=NONE gui=NONE cterm=NONE
+hi Constant guifg=#888888 guibg=NONE gui=NONE cterm=NONE
+hi PreProc guifg=#88735d guibg=NONE gui=NONE cterm=NONE
+hi Type guifg=#488848 guibg=NONE gui=NONE cterm=NONE
+hi Special guifg=#883088 guibg=NONE gui=NONE cterm=NONE
+hi Directory guifg=#208888 guibg=NONE gui=NONE cterm=NONE
+hi Conceal guifg=#666666 guibg=NONE gui=NONE cterm=NONE
 hi Ignore guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi Title guifg=#ff00ff guibg=NONE gui=bold cterm=bold
-hi DiffAdd guifg=#ffffff guibg=#5f875f gui=NONE cterm=NONE
-hi DiffChange guifg=#ffffff guibg=#5f87af gui=NONE cterm=NONE
-hi DiffText guifg=#000000 guibg=#c6c6c6 gui=NONE cterm=NONE
-hi DiffDelete guifg=#ffffff guibg=#af5faf gui=NONE cterm=NONE
+hi Title guifg=#883088 guibg=NONE gui=bold cterm=bold
+hi DiffAdd guifg=#888888 guibg=#2a482a gui=NONE cterm=NONE
+hi DiffChange guifg=#888888 guibg=#2a3a48 gui=NONE cterm=NONE
+hi DiffText guifg=#000000 guibg=#666666 gui=NONE cterm=NONE
+hi DiffDelete guifg=#888888 guibg=#482a48 gui=NONE cterm=NONE
 
 if s:t_Co >= 256
   hi! link Terminal Normal

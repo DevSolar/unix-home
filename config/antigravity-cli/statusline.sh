@@ -467,7 +467,7 @@ render_bar() {
     fi
   done
 
-  BAR="${bar_color}${bar}"
+  BAR="${bar_color}${bar}${R}"
 }
 
 render_bar "$CTX_INT"
