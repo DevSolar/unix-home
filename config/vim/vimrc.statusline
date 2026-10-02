@@ -43,8 +43,6 @@ if ( exists("+statusline") )
         \%#StatusBar#
         "\ New spacing group
         \%=
-        "\ Highlighting group
-        \%{SynGroup()}
         "\ [help], [Preview], [Quickfix List] or [LocationList} as applicable
         \%h%w%q
         "\ Cursor column
