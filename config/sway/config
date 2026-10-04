@@ -1,0 +1,148 @@
+# Sway Configuration
+# Optimized for a clean, minimal, keyboard-driven console workflow.
+
+### Variables
+# Mod key: Mod4 = Windows / Super / Command key. (Use Mod1 for Alt if preferred)
+set $mod Mod4
+
+# Preferred terminal emulator
+set $term foot
+
+# Preferred application launcher
+set $menu wmenu-run
+
+### Input Configuration
+# Match layout and variant from system setup
+input type:keyboard {
+    xkb_layout "us"
+    xkb_variant "altgr-intl"
+    xkb_options "caps:escape"
+}
+
+### Visuals & Aesthetics (Minimalist Console Style)
+# Subtle 2px border to clearly indicate active window without title bars
+default_border pixel 2
+default_floating_border pixel 2
+font pango:monospace 10
+
+# Window colors:        border  backgr. text    indicator child_border
+client.focused          #4c7899 #285577 #ffffff #2e9ef4   #4c7899
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.focused_inactive #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+
+# Solid black background to match terminal theme
+output * bg #000000 solid_color
+
+### Autostart
+# Automatically start Foot terminal full-screen on launch
+exec $term
+
+### Key Bindings
+
+# --- Basics ---
+# Start a new terminal (splits current space automatically)
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Application launcher
+bindsym $mod+d exec $menu
+
+# Drag floating windows with $mod + Left Mouse Button, resize with $mod + Right Mouse Button
+floating_modifier $mod normal
+
+# Reload the configuration file
+bindsym $mod+c reload
+
+# Exit Sway (logs out cleanly)
+bindsym $mod+Shift+e exit
+
+# --- Navigation & Focus ---
+# Move focus with cursor keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focus with Vim keys (h, j, k, l)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move focused window with cursor keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Move focused window with Vim keys
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# --- Layouts & Splits ---
+# Split horizontally (next window opens to the right)
+bindsym $mod+b splith
+# Split vertically (next window opens below)
+bindsym $mod+v splitv
+
+# Switch layout style (stacking, tabbed, tiling)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle fullscreen (replicates the Cage single-app kiosk experience)
+bindsym $mod+f fullscreen toggle
+
+# Toggle floating mode for focused window
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between tiling and floating area
+bindsym $mod+space focus mode_toggle
+
+# --- Workspaces ---
+# Switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Move focused window to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# --- Resizing Mode ---
+mode "resize" {
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym h resize shrink width 10px
+    bindsym j resize grow height 10px
+    bindsym k resize shrink height 10px
+    bindsym l resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
