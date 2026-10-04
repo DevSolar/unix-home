@@ -11,13 +11,10 @@ test -d "${HOME}/.local/bin" && PATH="${HOME}/.local/bin:${PATH}"; export PATH
 
 test -r "${XDG_CONFIG_HOME}/sh/profile" && . "${XDG_CONFIG_HOME}/sh/profile"
 
-case ${SHELL} in
-    */bin/bash)
-        test -r "${XDG_CONFIG_HOME}/sh/bash_profile" && . "${XDG_CONFIG_HOME}/sh/bash_profile"
-        ;;
-    */bin/ksh)
-        test -r "${XDG_CONFIG_HOME}/sh/ksh_profile" && . "${XDG_CONFIG_HOME}/sh/ksh_profile"
-        ;;
-    *)
-        ;;
-esac
+if [ -n "$BASH_VERSION" ]
+then
+    test -r "${XDG_CONFIG_HOME}/sh/bash_profile" && . "${XDG_CONFIG_HOME}/sh/bash_profile"
+elif [ -n "$KSH_VERSION" ]
+then
+    test -r "${XDG_CONFIG_HOME}/sh/ksh_profile" && . "${XDG_CONFIG_HOME}/sh/ksh_profile"
+fi
