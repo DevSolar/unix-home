@@ -1,4 +1,4 @@
-command = "sway"
+command = "bash -l -c sway"
 outputMode = "all"
 scale = 1
 
