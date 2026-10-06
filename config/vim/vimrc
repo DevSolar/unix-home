@@ -80,16 +80,6 @@ set keyprotocol = ""
 let &term = &term
 "endif
 
-command -nargs=0 Csplit {
-    let s:filename = expand( '%:r' )
-    exec 'split' s:filename .. '.cpp'
-}
-
-command -nargs=0 Hsplit {
-    let s:filename = expand( '%:r' )
-    exec 'split' s:filename .. '.h'
-}
-
 set cscopetag
 set cscopetagorder=1
 set cscopequickfix=s-,c-,d-,i-,t-,e-

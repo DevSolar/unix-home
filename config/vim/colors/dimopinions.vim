@@ -95,6 +95,20 @@ hi DiffChange guifg=#888888 guibg=#202020 gui=NONE ctermfg=grey ctermbg=darkgrey
 hi DiffText guifg=#887c2a guibg=#202020 gui=bold ctermfg=yellow ctermbg=darkgrey cterm=bold
 hi DiffDelete guifg=#551818 guibg=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
 
+" Gitsigns: Red for unstaged (working tree), Green for staged (index)
+hi GitSignsAdd                guifg=#882020 guibg=NONE gui=NONE ctermfg=Red ctermbg=NONE cterm=NONE
+hi GitSignsChange             guifg=#882020 guibg=NONE gui=NONE ctermfg=Red ctermbg=NONE cterm=NONE
+hi GitSignsDelete             guifg=#882020 guibg=NONE gui=NONE ctermfg=Red ctermbg=NONE cterm=NONE
+hi GitSignsTopdelete          guifg=#882020 guibg=NONE gui=NONE ctermfg=Red ctermbg=NONE cterm=NONE
+hi GitSignsChangedelete       guifg=#882020 guibg=NONE gui=NONE ctermfg=Red ctermbg=NONE cterm=NONE
+hi GitSignsUntracked          guifg=#882020 guibg=NONE gui=NONE ctermfg=Red ctermbg=NONE cterm=NONE
+
+hi GitSignsStagedAdd          guifg=#2a883a guibg=NONE gui=NONE ctermfg=Green ctermbg=NONE cterm=NONE
+hi GitSignsStagedChange       guifg=#2a883a guibg=NONE gui=NONE ctermfg=Green ctermbg=NONE cterm=NONE
+hi GitSignsStagedDelete       guifg=#2a883a guibg=NONE gui=NONE ctermfg=Green ctermbg=NONE cterm=NONE
+hi GitSignsStagedTopdelete    guifg=#2a883a guibg=NONE gui=NONE ctermfg=Green ctermbg=NONE cterm=NONE
+hi GitSignsStagedChangedelete guifg=#2a883a guibg=NONE gui=NONE ctermfg=Green ctermbg=NONE cterm=NONE
+
 if (has('termguicolors') && &termguicolors) || has('gui_running')
   unlet! s:t_Co
   finish
