@@ -20,6 +20,7 @@ alias ll='ls -AhlF'
 alias la='ls -A'
 alias vsh='vim -c ":Vshell"'
 alias nvim='unset VIMINIT; nvim'
+alias vim='unset DISPLAY; vim'
 alias tree='tree -I packages'
 alias resize='echo -ne "\e[8;25;80t"'
 alias shove='gim amend && gim push -f'
@@ -199,6 +200,9 @@ msvc_init()
 EOF
     )
 }
+
+# termcolors
+force_color_prompt=yes
 
 # dircolors
 test -r ${XDG_CONFIG_HOME}/sh/dircolors && eval "$(dircolors -b ${XDG_CONFIG_HOME}/sh/dircolors)"

@@ -15,3 +15,5 @@
 	waitingForEditor = false
 [include]
 	path = config.local
+[merge]
+	tool = vimdiff

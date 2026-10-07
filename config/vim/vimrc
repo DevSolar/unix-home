@@ -57,6 +57,8 @@ set mouse=a                                                 " Mouse support all 
 set pastetoggle=<F2>                                        " 'Paste' autoformat off
 set vb t_vb=                                                " Disable terminal beeps
 set termguicolors                                           " Sets colors used from web palette to terminal
+set novisualbell noerrorbells                               " Disable visual and audible bells
+set belloff=all                                             " Turn off all error bells
 set wildmenu                                                " Change behavior of command autocompletion
 set wildoptions=pum                                         " Popup for commandline completion
 "set autochdir                                               " Automatically cd to open file's directory
@@ -91,6 +93,13 @@ if has( 'gui_running' )
     highlight Normal guibg=black guifg=green
     set lines=30 columns=120
 endif
+
+if has('termguicolors')
+    set termguicolors
+endif
+set t_Co=256
+let $COLORTERM = 'truecolor'
+let $TERM = 'xterm-256color'
 
 function! VerticalShells()
     only
