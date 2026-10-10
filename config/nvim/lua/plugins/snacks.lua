@@ -50,6 +50,7 @@ return {
         { pane = 1, icon = " ", desc = "Stage Hunk",       label = "<leader>hs" },
         { pane = 1, icon = " ", desc = "Preview Diff",     label = "<leader>hp" },
         { pane = 1, icon = "󰊢 ", desc = "Toggle Blame",     label = "<leader>tb" },
+        { pane = 1, icon = "󰛐 ", desc = "Toggle Dim",       label = "<leader>td" },
         { pane = 1, icon = "󰌒 ", desc = "CamelCase Nav",    label = "<C-h/l>" },
 
         { pane = 1, section = "startup", padding = 1 },
@@ -151,6 +152,35 @@ return {
           indent = 3,
         },
       },
+    },
+
+    -- Dim: Focus on the active code scope by dimming surrounding code
+    dim = {
+      scope = {
+        min_size = 5,
+        max_size = 20,
+        siblings = true,
+      },
+      animate = {
+        enabled = vim.fn.has("nvim-0.10") == 1,
+        easing = "outQuad",
+        duration = {
+          step = 20,
+          total = 300,
+        },
+      },
+      filter = function(buf)
+        return vim.g.snacks_dim ~= false and vim.b[buf].snacks_dim ~= false and vim.bo[buf].buftype == ""
+      end,
+    },
+  },
+  keys = {
+    {
+      "<leader>td",
+      function()
+        Snacks.toggle.dim():toggle()
+      end,
+      desc = "Toggle Scope Dimming",
     },
   },
 }
