@@ -37,6 +37,7 @@ output * bg #000000 solid_color
 ### Autostart
 # Automatically start Foot terminal full-screen on launch
 exec $term
+exec waybar
 
 ### Key Bindings
 
