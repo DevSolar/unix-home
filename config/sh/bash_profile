@@ -57,16 +57,15 @@ if ! agent_is_usable; then
     start_agent
 fi
 
-if [[ $- == *i* ]]; then
-    ssh-add -l >/dev/null 2>&1
+ssh-add -l >/dev/null 2>&1
 
-    if [ $? -eq 1 ]; then
-        if [ -x ~/.config/ssh/provider ]
-        then
-            DISPLAY=1 SSH_ASKPASS=~/.config/ssh/provider ssh-add < /dev/null
-        else
-            ssh-add
-        fi
+if [ $? -eq 1 ]; then
+    if [ -x ~/.config/ssh/provider ]
+    then
+        DISPLAY=1 SSH_ASKPASS=~/.config/ssh/provider ssh-add < /dev/null
+    elif [[ $- == *i* ]]
+    then
+        ssh-add
     fi
 fi
 
