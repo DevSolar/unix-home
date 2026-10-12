@@ -6,6 +6,10 @@ set -o vi
 HISTFILE="${XDG_STATE_HOME}/bash_history"; export HISTFILE
 HISTCONTROL=ignoreboth; export HISTCONTROL
 
+# Ensure wlroots/Sway uses the Broadcom V3D GPU on Raspberry Pi 4
+export WLR_RENDER_DRM_DEVICE=/dev/dri/renderD128
+export WLR_RENDERER=gles2
+
 shopt -s histappend
 shopt -s checkwinsize
 

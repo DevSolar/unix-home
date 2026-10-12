@@ -33,6 +33,8 @@ client.urgent           #2f343a #900000 #ffffff #900000   #900000
 
 # Solid black background to match terminal theme
 output * bg #000000 solid_color
+# Reduce resolution, increase refresh for easier streaming
+output HDMI-A-2 mode 2560x1080@60Hz
 
 ### Autostart
 # Automatically start Foot terminal full-screen on launch

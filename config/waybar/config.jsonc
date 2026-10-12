@@ -2,7 +2,7 @@
 {
     // "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 40, // Waybar height (to be removed for auto height)
+    "height": 32, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 8, // Gaps between modules (4px)
     // Choose the order of the modules
@@ -10,18 +10,19 @@
         "sway/workspaces",
         "sway/mode",
         "sway/scratchpad",
-        "custom/media"
-    ],
-    "modules-center": [
+        "custom/media",
         "sway/window"
     ],
+    "modules-center": [
+    ],
     "modules-right": [
-        //"mpd",
+        "mpd",
         "idle_inhibitor",
         //"pulseaudio",
         "network",
         //"power-profiles-daemon",
         "cpu",
+        "custom/gpu",
         "memory",
         "temperature",
         //"backlight",
@@ -70,7 +71,7 @@
         "tooltip-format": "{app}: {title}"
     },
     "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) [{songPosition}/{queueLength}] {volume}% ",
         "format-disconnected": "Disconnected ",
         "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
         "unknown-tag": "N/A",
@@ -107,25 +108,32 @@
         "spacing": 10
     },
     "clock": {
-        // "timezone": "America/New_York",
+        "timezone": "Europe/Berlin",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage:>2}% ",
         "tooltip": false
     },
+    "custom/gpu": {
+        "interval": 2,
+        "return-type": "json",
+        "exec": "waybar-gpu",
+        "format": "{} ",
+        "tooltip": true
+    },
     "memory": {
-        "format": "{}% "
+        "format": "{percentage:>2}% "
     },
     "temperature": {
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "warning-threshold": 70,
         "critical-threshold": 80,
-        "format": "{temperatureC}°C ",
-        "format-warning": "{temperatureC}°C ",
-        "format-critical": "{temperatureC}°C "
+        "format": "{temperatureC:>2}°C ",
+        "format-warning": "{temperatureC:>2}°C ",
+        "format-critical": "{temperatureC:>2}°C "
     },
     "backlight": {
         // "device": "acpi_video1",
@@ -163,7 +171,7 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": {signalStrength}% ",
+        "format-wifi": "{signalStrength}% ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
