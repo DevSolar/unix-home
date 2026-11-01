@@ -35,7 +35,7 @@ return {
         { pane = 1, icon = " ", desc = "Recent Files",   label = "<leader>fo", action = ":Telescope oldfiles" },
         { pane = 1, icon = " ", desc = "Buffers",        label = "<leader>fb", action = ":Telescope buffers" },
         { pane = 1, icon = " ", desc = "File Explorer",  label = "-",          action = ":Oil" },
-        { pane = 1, icon = " ", desc = "Float Explorer", label = "<leader>-",  action = ":Oil --float" },
+        { pane = 1, icon = " ", desc = "Float Explorer", label = "<leader>-",  action = ":Oil --float", padding = 1 },
 
         { pane = 1, title = "LSP & Code", padding = 1 },
         { pane = 1, icon = "󰈈 ", desc = "Definition",      label = "gd" },
@@ -43,7 +43,7 @@ return {
         { pane = 1, icon = "󰋖 ", desc = "Hover Docs",      label = "K" },
         { pane = 1, icon = "󰌵 ", desc = "Code Action",     label = "<leader>ca" },
         { pane = 1, icon = "󰑕 ", desc = "Rename Symbol",   label = "<leader>rn" },
-        { pane = 1, icon = " ", desc = "Next Diagnostic", label = "]d" },
+        { pane = 1, icon = " ", desc = "Next Diagnostic", label = "]d", padding = 1 },
 
         { pane = 1, title = "Git & Editing", padding = 1 },
         { pane = 1, icon = " ", desc = "Next Hunk",        label = "]c" },
@@ -51,7 +51,7 @@ return {
         { pane = 1, icon = " ", desc = "Preview Diff",     label = "<leader>hp" },
         { pane = 1, icon = "󰊢 ", desc = "Toggle Blame",     label = "<leader>tb" },
         { pane = 1, icon = "󰛐 ", desc = "Toggle Dim",       label = "<leader>td" },
-        { pane = 1, icon = "󰌒 ", desc = "CamelCase Nav",    label = "<C-h/l>" },
+        { pane = 1, icon = "󰌒 ", desc = "CamelCase Nav",    label = "<C-h/l>", padding = 1 },
 
         { pane = 1, section = "startup", padding = 1 },
 

@@ -9,7 +9,7 @@ set $mod Mod4
 set $term foot
 
 # Preferred application launcher
-set $menu wmenu-run
+set $menu wmenu-run -f "DejaVu Sans Mono 16"
 
 ### Input Configuration
 # Match layout and variant from system setup
@@ -23,7 +23,7 @@ input type:keyboard {
 # Subtle 2px border to clearly indicate active window without title bars
 default_border pixel 2
 default_floating_border pixel 2
-font pango:monospace 10
+font DejaVu Sans Mono 16
 
 # Window colors:        border  backgr. text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #4c7899
